@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import ShinyButton from "../components/ShinyButton";
+import ShinyButton from "@/app/components/ui/shiny-button";
 
 export default function Home() {
   const [showButton, setShowButton] = useState(true);
