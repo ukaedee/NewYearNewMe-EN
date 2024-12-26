@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import ShinyButton from "../components/ShinyButton.tsx";
+
 
 export default function Home() {
   const [showButton, setShowButton] = useState(true);
@@ -37,13 +39,10 @@ export default function Home() {
 
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       <div className="text-center z-10">
-        {showButton && (
-          <button
-            onClick={handleButtonClick}
-            className="magic-hover magic-fade bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xl sm:text-2xl md:text-3xl px-6 sm:px-8 py-3 sm:py-4 rounded-full shadow-lg hover:scale-110 transition-transform"
-          >
+      {showButton && (
+          <ShinyButton onClick={handleButtonClick}>
             おみくじを引く
-          </button>
+          </ShinyButton>
         )}
         {showVideo && (
           <video
