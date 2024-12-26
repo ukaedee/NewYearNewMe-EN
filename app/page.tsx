@@ -1,8 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import ShinyButton from "../components/ShinyButton.tsx";
-
+import ShinyButton from "../components/ShinyButton";
 
 export default function Home() {
   const [showButton, setShowButton] = useState(true);
@@ -10,16 +9,14 @@ export default function Home() {
   const router = useRouter();
 
   const handleButtonClick = () => {
-    setShowButton(false); // ボタンを非表示
-    setShowVideo(true); // 動画を表示
+    setShowButton(false);
+    setShowVideo(true);
   };
 
-  
-
   const handleVideoEnd = () => {
-    console.log("動画再生が終了しました"); // デバッグログ
+    console.log("動画再生が終了しました");
     try {
-      router.push("/result"); // 結果ページへ遷移
+      router.push("/result");
       console.log("ルート遷移が成功しました");
     } catch (error) {
       console.error("ルート遷移に失敗しました", error);
@@ -27,7 +24,6 @@ export default function Home() {
   };
 
   return (
-    
     <div
       className="h-screen flex items-center justify-center bg-cover bg-center relative"
       style={{
@@ -36,11 +32,15 @@ export default function Home() {
         backgroundPosition: "center",
       }}
     >
-
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       <div className="text-center z-10">
-      {showButton && (
-          <ShinyButton onClick={handleButtonClick}>
+        {showButton && (
+          <ShinyButton 
+            onClick={handleButtonClick}
+            style={{ 
+              "--primary": "271 91% 65%"
+            } as React.CSSProperties}
+          >
             おみくじを引く
           </ShinyButton>
         )}

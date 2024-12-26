@@ -6,7 +6,14 @@ import {
   type AnimationProps,
   type HTMLMotionProps,
 } from "framer-motion";
-import { cn } from "../lib/utils"; // 
+import { cn } from "../lib/utils";
+
+interface ShinyButtonProps extends HTMLMotionProps<"button"> {
+  children: React.ReactNode;
+  style?: React.CSSProperties & {
+    '--primary'?: string;
+  };
+}
 
 const animationProps = {
   initial: { "--x": "100%", scale: 0.8 },
@@ -29,14 +36,8 @@ const animationProps = {
   },
 } as AnimationProps;
 
-interface ShinyButtonProps extends HTMLMotionProps<"button"> {
-  children: React.ReactNode;
-  className?: string;
-  ref?: React.Ref<HTMLButtonElement>;
-}
-
 const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
-  ({ children, className, ...props }, ref) => {
+  ({ className, children, style, ...props }, ref) => {
     return (
       <motion.button
         ref={ref}
@@ -70,4 +71,4 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
 
 ShinyButton.displayName = "ShinyButton";
 
-export default ShinyButton; // デフォルトエクスポート
+export default ShinyButton;

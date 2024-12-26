@@ -6,9 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily:{
-        adobe: ['fot-tsukuaoldmin-pr6n','sans-serif']
-      }
+      fontFamily: {
+        tsukuaold: ['fot-tsukuaoldmin-pr6n', 'Arial', 'sans-serif'],
+      },
+      colors: {
+        primary: "hsl(var(--primary))",
+      },
     },
   },
   plugins: [],
