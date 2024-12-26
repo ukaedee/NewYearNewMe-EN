@@ -1,7 +1,17 @@
-import { useRouter } from "next/router";
+"use client";
+export const dynamic = "force-dynamic";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+// 結果データの型定義
+type Result = {
+  text: string;
+  description: string;
+  image: string;
+};
 
 // 結果データ
-const results = [
+const results: Result[] = [
   {
     text: "大吉",
     description: "素晴らしい一年になりそう！",
@@ -27,10 +37,14 @@ const results = [
 
 export default function Result() {
   const router = useRouter();
+  const [randomResult, setRandomResult] = useState<Result | null>(null); // 型を明確に指定
 
-  // ランダムな結果を選択
-  const randomResult =
-    results[Math.floor(Math.random() * results.length)];
+  // クライアントサイドでランダム値を生成
+  useEffect(() => {
+    const random = results[Math.floor(Math.random() * results.length)];
+    console.log("ランダム結果:", random);
+    setRandomResult(random);
+  }, []);
 
   const handleRetry = () => {
     router.push("/"); // トップページに戻る
@@ -40,6 +54,14 @@ export default function Result() {
     navigator.clipboard.writeText(window.location.href);
     alert("リンクがコピーされました！");
   };
+
+  if (!randomResult) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div

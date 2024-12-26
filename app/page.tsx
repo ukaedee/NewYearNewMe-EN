@@ -12,7 +12,10 @@ export default function Home() {
     setShowVideo(true); // 動画を表示
   };
 
+  
+
   const handleVideoEnd = () => {
+    console.log("動画再生が終了しました"); 
     router.push("/result"); // 結果ページへ遷移
   };
 
@@ -33,7 +36,7 @@ export default function Home() {
         )}
         {showVideo && (
           <video
-            src="/static/video/omikuji.mp4"
+            src="/static/video/load.mp4"
             autoPlay
             className="w-full h-full object-cover"
             onEnded={handleVideoEnd}

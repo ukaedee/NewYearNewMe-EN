@@ -17,5 +17,9 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'fot-tsukuaoldmin-pr6n',Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif; /* フォールバックフォント */
+}
+
+.wf-active body {
+  font-family: 'fot-tsukuaoldmin-pr6n', Arial, Helvetica, sans-serif; /* Adobe Fonts */
 }
