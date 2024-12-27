@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import ShinyButton from "@/app/components/ui/shiny-button";
+import LoadingAnimation from "@/app/components/LoadingAnimation";
 
 export default function Home() {
   const [showButton, setShowButton] = useState(true);
@@ -61,15 +62,14 @@ export default function Home() {
           )}
         </AnimatePresence>
         {showVideo && (
-          <motion.video
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            src="/static/video/load.mp4"
-            autoPlay
-            className="h-screen w-auto object-contain absolute inset-0 mx-auto"
-            onEnded={handleVideoEnd}
-          />
+            className="absolute inset-0 flex items-center justify-center"
+          >
+            <LoadingAnimation onComplete={handleVideoEnd} isFullScreen />
+          </motion.div>
         )}
       </div>
     </motion.div>
