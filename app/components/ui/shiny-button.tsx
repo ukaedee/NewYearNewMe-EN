@@ -53,6 +53,7 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
           "hover:shadow-[0_0_25px_rgba(255,255,255,0.5)]",
           "bg-black/40 backdrop-blur-2xl backdrop-saturate-150",
           "dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/10%)_0%,transparent_60%)]",
+          "font-['fot-tsukuaoldmin-pr6n']",
           className,
         )}
       >
