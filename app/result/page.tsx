@@ -35,7 +35,30 @@ const results: Result[] = [
   // 他のテキストを追加
 ];
 
-export default function Result() {
+// シェア用のURLとテキストを生成する関数
+const getShareData = (result: Result) => {
+  const baseUrl = typeof window !== 'undefined' 
+    ? `${window.location.protocol}//${window.location.host}`
+    : '';
+  const shareUrl = `${baseUrl}/result`;
+  const shareText = `2024年の運勢は「${result.text}」でした！\n${result.description}`;
+  return { shareUrl, shareText };
+};
+
+// シェア関数
+const handleTwitterShare = (result: Result) => {
+  const { shareUrl, shareText } = getShareData(result);
+  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+  window.open(url, '_blank');
+};
+
+const handleFacebookShare = (result: Result) => {
+  const { shareUrl, shareText } = getShareData(result);
+  const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+  window.open(url, '_blank');
+};
+
+export default function ResultPage() {
   const router = useRouter();
   const [randomResult, setRandomResult] = useState<Result | null>(null); // 型を明確に指定
 
@@ -85,10 +108,16 @@ export default function Result() {
           もう一度引く
         </button>
         <button
-          onClick={handleCopyLink}
-          className="magic-hover magic-bounce px-6 py-3 bg-blue-500 text-white rounded-full shadow-md hover:scale-110 transition-transform"
+          onClick={() => handleTwitterShare(randomResult)}
+          className="magic-hover magic-bounce px-6 py-3 bg-[#1DA1F2] text-white rounded-full shadow-md hover:scale-110 transition-transform"
         >
-          リンクコピー
+          Twitterでシェア
+        </button>
+        <button
+          onClick={() => handleFacebookShare(randomResult)}
+          className="magic-hover magic-bounce px-6 py-3 bg-[#4267B2] text-white rounded-full shadow-md hover:scale-110 transition-transform"
+        >
+          Facebookでシェア
         </button>
       </div>
     </div>
