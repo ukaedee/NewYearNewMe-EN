@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import ShinyButton from "@/app/components/ui/shiny-button";
 
 export default function Home() {
@@ -24,7 +25,10 @@ export default function Home() {
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ filter: "blur(10px)", opacity: 0 }}
+      animate={{ filter: "blur(0px)", opacity: 1 }}
+      transition={{ duration: 2 }}
       className="h-screen flex items-center justify-center bg-cover bg-center relative"
       style={{
         backgroundImage: "url('/static/background/index.png')",
@@ -34,25 +38,40 @@ export default function Home() {
     >
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       <div className="text-center z-10">
-        {showButton && (
-          <ShinyButton 
-            onClick={handleButtonClick}
-            style={{ 
-              "--primary": "271 91% 65%"
-            } as React.CSSProperties}
-          >
-            おみくじを引く
-          </ShinyButton>
-        )}
+        <AnimatePresence>
+          {showButton && (
+            <motion.div
+              initial={{ opacity: 0, filter: "blur(10px)" }}
+              animate={{ opacity: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, filter: "blur(10px)" }}
+              transition={{ 
+                duration: 1.5,
+                delay: 2
+              }}
+            >
+              <ShinyButton 
+                onClick={handleButtonClick}
+                style={{ 
+                  "--primary": "328 100% 54%"
+                } as React.CSSProperties}
+              >
+                おみくじを引く
+              </ShinyButton>
+            </motion.div>
+          )}
+        </AnimatePresence>
         {showVideo && (
-          <video
+          <motion.video
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
             src="/static/video/load.mp4"
             autoPlay
-            className="w-full h-full object-cover md:max-h-screen md:aspect-video"
+            className="h-screen w-auto object-contain absolute inset-0 mx-auto"
             onEnded={handleVideoEnd}
           />
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

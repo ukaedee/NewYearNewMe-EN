@@ -14,18 +14,22 @@ const animationProps = {
   whileHover: { scale: 1.1 },
   whileTap: { scale: 0.95 },
   transition: {
-    repeat: Infinity,
-    repeatType: "loop",
-    repeatDelay: 0.5,
-    type: "spring",
-    stiffness: 400,
-    damping: 25,
-    mass: 1,
+    stiffness: 200,
+    damping: 20,
+    mass: 1.5,
+    "--x": {
+      duration: 4,
+      ease: "easeInOut",
+      type: "tween",
+      repeat: Infinity,
+      repeatType: "loop",
+      repeatDelay: 0.5,
+    },
     scale: {
       type: "spring",
-      stiffness: 400,
-      damping: 15,
-      mass: 0.2,
+      stiffness: 200,
+      damping: 20,
+      mass: 0.5,
     },
   },
 } as AnimationProps;
@@ -44,9 +48,10 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
         {...animationProps}
         {...props}
         className={cn(
-          "relative rounded-lg px-16 py-5 font-medium backdrop-blur-xl",
+          "relative rounded-lg px-16 py-5 font-medium",
           "transition-all duration-300 ease-in-out",
           "hover:shadow-[0_0_25px_rgba(255,255,255,0.5)]",
+          "bg-black/40 backdrop-blur-2xl backdrop-saturate-150",
           "dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/10%)_0%,transparent_60%)]",
           className,
         )}
@@ -65,7 +70,7 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
             mask: "linear-gradient(rgb(0,0,0), rgb(0,0,0)) content-box,linear-gradient(rgb(0,0,0), rgb(0,0,0))",
             maskComposite: "exclude",
           }}
-          className="absolute inset-0 z-10 block rounded-[inherit] bg-[linear-gradient(-75deg,rgba(255,105,180,0.3)_calc(var(--x)+20%),rgba(255,20,147,0.7)_calc(var(--x)+25%),rgba(255,105,180,0.3)_calc(var(--x)+100%))] p-[3px]"
+          className="absolute inset-0 z-10 block rounded-[inherit] bg-[linear-gradient(-75deg,rgba(255,255,255,0.5)_calc(var(--x)+20%),rgba(255,255,255,0.8)_calc(var(--x)+25%),rgba(255,255,255,0.5)_calc(var(--x)+100%))] p-[2px]"
         ></span>
       </motion.button>
     );
