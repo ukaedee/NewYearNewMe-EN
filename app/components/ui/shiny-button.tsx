@@ -53,7 +53,7 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
         {...animationProps}
         {...props}
         className={cn(
-          "relative rounded-lg px-16 py-5 font-medium",
+          "relative rounded-full px-16 py-5 font-medium",
           "transition-all duration-300 ease-in-out",
           "hover:shadow-[0_0_25px_rgba(255,255,255,0.5)]",
           "bg-black/40 backdrop-blur-2xl backdrop-saturate-150",
