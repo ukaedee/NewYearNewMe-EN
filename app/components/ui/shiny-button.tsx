@@ -9,21 +9,26 @@ import {
 import { cn } from "@/app/lib/utils";
 
 const animationProps = {
-  initial: { "--x": "100%", scale: 0.8 },
-  animate: { "--x": "-100%", scale: 1 },
-  whileHover: { scale: 1.1 },
+  initial: { "--x": "-100%", scale: 0.8 },
+  animate: { 
+    "--x": ["200%", "-100%"],
+    scale: 1
+  },
+  whileHover: { 
+    scale: 1.1,
+  },
   whileTap: { scale: 0.95 },
   transition: {
     stiffness: 200,
     damping: 20,
     mass: 1.5,
     "--x": {
-      duration: 4,
+      duration: 1.8,
       ease: "easeInOut",
-      type: "tween",
       repeat: Infinity,
-      repeatType: "loop",
-      repeatDelay: 0.5,
+      repeatDelay: 1,
+      times: [0, 1],
+      repeatType: "loop"
     },
     scale: {
       type: "spring",
