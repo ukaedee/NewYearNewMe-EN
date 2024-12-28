@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { Result, results } from "@/app/data/omikuji";
 import ShinyButton from "@/app/components/ui/shiny-button";
 import GradualSpacing from "@/app/components/ui/gradual-spacing";
 
@@ -11,6 +12,8 @@ export default function Home() {
   const [showLoadVideo, setShowLoadVideo] = useState(false);
   const [showOpeningVideo, setShowOpeningVideo] = useState(false);
   const [showText, setShowText] = useState(false);
+  const [isVideoEnding, setIsVideoEnding] = useState(false);
+  const [randomResult, setRandomResult] = useState<Result | null>(null);
   const router = useRouter();
   const openingVideoRef = useRef<HTMLVideoElement>(null);
   const loadVideoRef = useRef<HTMLVideoElement>(null);
@@ -26,7 +29,7 @@ export default function Home() {
       setShowText(false);
     }, 12000);
 
-    // 文字のブラーアウト後にオープニング動画を表示
+    // 文字のブラーアウト後にオープニン画を表示
     const openingVideoTimer = setTimeout(() => {
       setShowOpeningVideo(true);
     }, 13000);
@@ -42,11 +45,23 @@ export default function Home() {
     if (showOpeningVideo && openingVideoRef.current) {
       openingVideoRef.current.load();
       const playPromise = openingVideoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.error("動画の再生に失敗:", error);
-        });
-      }
+      const preventPause = (e: Event) => {
+        e.preventDefault();
+        if (openingVideoRef.current?.paused) {
+          openingVideoRef.current.play();
+        }
+      };
+      openingVideoRef.current.addEventListener('pause', preventPause);
+      
+      return () => {
+        const video = openingVideoRef.current;
+        if (video) {
+          video.removeEventListener('pause', preventPause);
+          video.pause();
+          video.src = '';
+          video.load();
+        }
+      };
     }
   }, [showOpeningVideo]);
 
@@ -54,24 +69,43 @@ export default function Home() {
     if (showLoadVideo && loadVideoRef.current) {
       loadVideoRef.current.load();
       const playPromise = loadVideoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.error("動画の再生に失敗:", error);
-        });
-      }
+      const preventPause = (e: Event) => {
+        e.preventDefault();
+        if (loadVideoRef.current?.paused) {
+          loadVideoRef.current.play();
+        }
+      };
+      loadVideoRef.current.addEventListener('pause', preventPause);
+      
+      return () => {
+        const video = loadVideoRef.current;
+        if (video) {
+          video.removeEventListener('pause', preventPause);
+          video.pause();
+          video.src = '';
+          video.load();
+        }
+      };
     }
   }, [showLoadVideo]);
 
   const handleButtonClick = () => {
+    const random = results[Math.floor(Math.random() * results.length)];
+    setRandomResult(random);
     setShowButton(false);
     setShowLoadVideo(true);
   };
 
   const handleVideoEnd = () => {
-    console.log("動画再生が終了しました");
     try {
-      router.push("/result");
-      console.log("ルート遷移が成功しました");
+      // まずBlur outアニメーション
+      setShowLoadVideo(false);
+      // 選ばれた結果のインデックスをクエリパラメータとして渡す
+      const resultIndex = results.findIndex(r => r.text === randomResult?.text);
+      // アニメーション完了後にページ遷移
+      setTimeout(() => {
+        router.push(`/result?id=${resultIndex}`);
+      }, 1000);
     } catch (error) {
       console.error("ルート遷移に失敗しました", error);
     }
@@ -81,6 +115,16 @@ export default function Home() {
   const handleOpeningVideoEnd = () => {
     setShowOpeningVideo(false);
     setShowButton(true);
+  };
+
+  const handleVideoTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    const video = e.target as HTMLVideoElement;
+    const timeLeft = video.duration - video.currentTime;
+    
+    // 動画終了1秒前からブラーエフェクトを開始
+    if (timeLeft < 1 && !isVideoEnding) {
+      setIsVideoEnding(true);
+    }
   };
 
   return (
@@ -98,9 +142,9 @@ export default function Home() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
+          transition: "opacity 0.5s ease-in-out"
         }}
       />
-      
       <div className="relative z-10 h-full flex items-center justify-center">
         <div className="text-center">
           <AnimatePresence mode="wait">
@@ -117,43 +161,43 @@ export default function Home() {
                   duration={0.8}
                   delayMultiple={0.1}
                   startDelay={0}
-                  className="text-white text-xl sm:text-2xl md:text-3xl font-noto-sans-jp font-bold"
+                  className="text-white text-2xl sm:text-3xl md:text-4xl font-noto-sans-jp font-bold"
                   framerProps={{
                     hidden: { opacity: 0, x: -20 },
                     visible: { opacity: 1, x: 0 },
                   }}
                 />
-                <div className="h-4 sm:h-6 md:h-8" />
+                <div className="h-1 sm:h-2 md:h-3" />
                 <GradualSpacing
                   text="運勢なんかじゃなくてきっかけ"
                   duration={0.8}
                   delayMultiple={0.1}
                   startDelay={4}
-                  className="text-white text-xl sm:text-2xl md:text-3xl font-noto-sans-jp font-bold"
+                  className="text-white text-2xl sm:text-3xl md:text-4xl font-noto-sans-jp font-bold"
                   framerProps={{
                     hidden: { opacity: 0, x: -20 },
                     visible: { opacity: 1, x: 0 },
                   }}
                 />
-                <div className="h-4 sm:h-6 md:h-8" />
+                <div className="h-1 sm:h-2 md:h-3" />
                 <GradualSpacing
                   text="ほんの少しの新しい挑戦が、"
                   duration={0.8}
                   delayMultiple={0.1}
                   startDelay={6}
-                  className="text-white text-xl sm:text-2xl md:text-3xl font-noto-sans-jp font-bold"
+                  className="text-white text-2xl sm:text-3xl md:text-4xl font-noto-sans-jp font-bold"
                   framerProps={{
                     hidden: { opacity: 0, x: -20 },
                     visible: { opacity: 1, x: 0 },
                   }}
                 />
-                <div className="h-4 sm:h-6 md:h-8" />
+                <div className="h-1 sm:h-2 md:h-3" />
                 <GradualSpacing
                   text="新しい自分を連れてきてくれるかも"
                   duration={0.8}
                   delayMultiple={0.1}
                   startDelay={8}
-                  className="text-white text-xl sm:text-2xl md:text-3xl font-noto-sans-jp font-bold"
+                  className="text-white text-2xl sm:text-3xl md:text-4xl font-noto-sans-jp font-bold"
                   framerProps={{
                     hidden: { opacity: 0, x: -20 },
                     visible: { opacity: 1, x: 0 },
@@ -195,30 +239,44 @@ export default function Home() {
                 autoPlay
                 playsInline
                 muted
+                controls={false}
+                controlsList="noplaybackrate nofullscreen nodownload"
+                disablePictureInPicture
+                style={{ pointerEvents: "none" }}
                 className="w-full h-full object-cover"
                 onEnded={handleOpeningVideoEnd}
               />
             </motion.div>
           )}
-          {showLoadVideo && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
-              className="fixed inset-0 w-full h-full z-50"
-            >
-              <motion.video
-                ref={loadVideoRef}
-                src="/static/video/load.mp4"
-                autoPlay
-                playsInline
-                muted
-                className="w-full h-full object-cover"
-                onEnded={handleVideoEnd}
-              />
-            </motion.div>
-          )}
+          <AnimatePresence>
+            {showLoadVideo && randomResult && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ 
+                  opacity: 1,
+                  filter: isVideoEnding ? "blur(10px)" : "blur(0px)"
+                }}
+                exit={{ opacity: 0, filter: "blur(10px)" }}
+                transition={{ duration: 1 }}
+                className="fixed inset-0 w-full h-full z-50"
+              >
+                <motion.video
+                  ref={loadVideoRef}
+                  src={randomResult.video}
+                  autoPlay
+                  playsInline
+                  muted
+                  controls={false}
+                  controlsList="noplaybackrate nofullscreen nodownload"
+                  disablePictureInPicture
+                  style={{ pointerEvents: "none" }}
+                  className="w-full h-full object-cover"
+                  onEnded={handleVideoEnd}
+                  onTimeUpdate={handleVideoTimeUpdate}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </motion.div>

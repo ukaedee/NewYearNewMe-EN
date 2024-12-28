@@ -40,6 +40,7 @@ export default function RootLayout({
           {`
             body {
               overscroll-behavior-x: auto;
+              background-color: #9A5AC8;
             }
           `}
         </style>

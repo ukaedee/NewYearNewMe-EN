@@ -2,38 +2,9 @@
 export const dynamic = "force-dynamic";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
-// 結果データの型定義
-type Result = {
-  text: string;
-  description: string;
-  image: string;
-};
-
-// 結果データ
-const results: Result[] = [
-  {
-    text: "大吉",
-    description: "素晴らしい一年になりそう！",
-    image: "/static/result/image1.png",
-  },
-  {
-    text: "中吉",
-    description: "良い一年が期待できそうです。",
-    image: "/static/result/image2.png",
-  },
-  {
-    text: "小吉",
-    description: "小さな幸せが訪れるかも。",
-    image: "/static/result/image3.png",
-  },
-  {
-    text: "凶",
-    description: "慎重に行動すれば大丈夫！",
-    image: "/static/result/image4.png",
-  },
-  // 他のテキストを追加
-];
+import { Result, results } from "@/app/data/omikuji";
+import ShinyButton from "@/app/components/ui/shiny-button";
+import { motion } from "framer-motion";
 
 // シェア用のURLとテキストを生成する関数
 const getShareData = (result: Result) => {
@@ -64,10 +35,18 @@ export default function ResultPage() {
 
   // クライアントサイドでランダム値を生成
   useEffect(() => {
-    const random = results[Math.floor(Math.random() * results.length)];
-    console.log("ランダム結果:", random);
-    setRandomResult(random);
-  }, []);
+    // URLからインデックスを取得
+    const searchParams = new URLSearchParams(window.location.search);
+    const id = searchParams.get('id');
+    
+    if (id !== null) {
+      const index = parseInt(id);
+      setRandomResult(results[index]);
+    } else {
+      // URLにパラメータがない場合はトップページに戻る
+      router.push('/');
+    }
+  }, [router]);
 
   const handleRetry = () => {
     router.push("/"); // トップページに戻る
@@ -87,34 +66,41 @@ export default function ResultPage() {
   }
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, filter: "blur(10px)" }}
+      animate={{ opacity: 1, filter: "blur(0px)" }}
+      transition={{ duration: 1 }}
       className="h-screen flex flex-col items-center justify-center bg-cover bg-center text-center relative"
       style={{ backgroundImage: "url('/static/background/background.gif')" }}
     >
       <div 
-        className="absolute inset-0 bg-[#0866FF]/20 backdrop-blur-sm"
+        className="absolute inset-0 bg-cover bg-center opacity-30"
+        style={{ 
+          backgroundImage: "url('/static/result/image1.png')",
+          mixBlendMode: "overlay"
+        }}
+      />
+      
+      <div 
+        className="absolute inset-0 bg-[#0866FF]/10 backdrop-blur-[1px]"
         style={{
-          backdropFilter: "saturate(180%)"
+          backdropFilter: "saturate(150%)"
         }}
       />
       
       <div className="relative z-10">
-        <div className="bg-white/80 p-8 rounded-lg shadow-lg backdrop-blur-md">
-          <img
-            src={randomResult.image}
-            alt={randomResult.text}
-            className="w-32 h-32 mx-auto mb-4"
-          />
-          <h1 className="text-3xl font-bold mb-2">{randomResult.text}</h1>
-          <p className="text-lg">{randomResult.description}</p>
+        <div className="p-8">
+          <div className="mb-8">
+            <img
+              src="/static/background/logo.png"
+              alt="おみくじロゴ"
+              className="w-48 h-auto mx-auto"
+            />
+          </div>
+          <h1 className="text-3xl font-bold mb-2 text-white">{randomResult.text}</h1>
+          <p className="text-lg text-white">{randomResult.description}</p>
         </div>
         <div className="flex flex-col items-center gap-6 mt-8">
-          <button
-            onClick={handleRetry}
-            className="magic-hover magic-bounce px-6 py-3 bg-green-500 text-white rounded-full shadow-md hover:scale-110 transition-transform"
-          >
-            もう一度引く
-          </button>
           <div className="flex gap-4">
             <button
               onClick={() => handleTwitterShare(randomResult)}
@@ -150,8 +136,16 @@ export default function ResultPage() {
               />
             </button>
           </div>
+          <ShinyButton 
+            onClick={handleRetry}
+            style={{ 
+              "--primary": "142 100% 50%"
+            } as React.CSSProperties}
+          >
+            もう一度引く
+          </ShinyButton>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
