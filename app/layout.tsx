@@ -4,17 +4,17 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL('http://localhost:3000'),
-  title: "2024年の運勢おみくじ",
+  title: "NewYear NewMe",
   description: "新年の運勢を占うおみくじアプリです。あなたの2024年の運勢は...？",
   openGraph: {
-    title: "2024年の運勢おみくじ",
+    title: "NewYear NewMe",
     description: "新年の運勢を占うおみくじアプリです。あなたの2024年の運勢は...？",
     images: [
       {
         url: "/static/background/ogp.png",
         width: 1200,
         height: 630,
-        alt: "2024年の運勢おみくじ",
+        alt: "NewYear NewMe",
       },
     ],
     locale: "ja_JP",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "2024年の運勢おみくじ",
+    title: "NewYear NewMe",
     description: "新年の運勢を占うおみくじアプリです。あなたの2024年の運勢は...？",
     images: ["/static/background/ogp.png"],
   },
