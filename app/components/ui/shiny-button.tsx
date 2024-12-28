@@ -57,27 +57,20 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
           "transition-all duration-300 ease-in-out",
           "hover:shadow-[0_0_25px_rgba(255,255,255,0.5)]",
           "bg-black/40 backdrop-blur-2xl backdrop-saturate-150",
-          "dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/10%)_0%,transparent_60%)]",
+          "border-2 border-white/70",
           "font-['fot-tsukuaoldmin-pr6n']",
           className,
         )}
       >
         <span
-          className="relative block size-full text-3xl uppercase tracking-wide text-[rgba(255,255,255,0.65)] dark:font-light dark:text-[rgba(255,255,255,0.9)]"
+          className="relative block size-full text-3xl uppercase tracking-wide text-white"
           style={{
             maskImage:
-              "linear-gradient(-75deg,hsl(var(--primary)) calc(var(--x) + 20%),transparent calc(var(--x) + 30%),hsl(var(--primary)) calc(var(--x) + 100%))",
+              "linear-gradient(-75deg,rgba(255,255,255,1) calc(var(--x) + 20%),transparent calc(var(--x) + 30%),rgba(255,255,255,1) calc(var(--x) + 100%))",
           }}
         >
           {children}
         </span>
-        <span
-          style={{
-            mask: "linear-gradient(rgb(0,0,0), rgb(0,0,0)) content-box,linear-gradient(rgb(0,0,0), rgb(0,0,0))",
-            maskComposite: "exclude",
-          }}
-          className="absolute inset-0 z-10 block rounded-[inherit] bg-[linear-gradient(-75deg,rgba(255,255,255,0.5)_calc(var(--x)+20%),rgba(255,255,255,0.8)_calc(var(--x)+25%),rgba(255,255,255,0.5)_calc(var(--x)+100%))] p-[2px]"
-        ></span>
       </motion.button>
     );
   },

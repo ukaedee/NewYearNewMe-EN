@@ -88,37 +88,69 @@ export default function ResultPage() {
 
   return (
     <div
-      className="h-screen flex flex-col items-center justify-center bg-cover bg-center text-center"
-      style={{ backgroundImage: "url('/static/background/result.png')" }}
+      className="h-screen flex flex-col items-center justify-center bg-cover bg-center text-center relative"
+      style={{ backgroundImage: "url('/static/background/background.gif')" }}
     >
-      <div className="bg-white bg-opacity-80 p-8 rounded-lg shadow-lg">
-        <img
-          src={randomResult.image}
-          alt={randomResult.text}
-          className="w-32 h-32 mx-auto mb-4"
-        />
-        <h1 className="text-3xl font-bold mb-2">{randomResult.text}</h1>
-        <p className="text-lg">{randomResult.description}</p>
-      </div>
-      <div className="flex gap-4 mt-8">
-        <button
-          onClick={handleRetry}
-          className="magic-hover magic-bounce px-6 py-3 bg-green-500 text-white rounded-full shadow-md hover:scale-110 transition-transform"
-        >
-          もう一度引く
-        </button>
-        <button
-          onClick={() => handleTwitterShare(randomResult)}
-          className="magic-hover magic-bounce px-6 py-3 bg-[#1DA1F2] text-white rounded-full shadow-md hover:scale-110 transition-transform"
-        >
-          Twitterでシェア
-        </button>
-        <button
-          onClick={() => handleFacebookShare(randomResult)}
-          className="magic-hover magic-bounce px-6 py-3 bg-[#4267B2] text-white rounded-full shadow-md hover:scale-110 transition-transform"
-        >
-          Facebookでシェア
-        </button>
+      <div 
+        className="absolute inset-0 bg-[#0866FF]/20 backdrop-blur-sm"
+        style={{
+          backdropFilter: "saturate(180%)"
+        }}
+      />
+      
+      <div className="relative z-10">
+        <div className="bg-white/80 p-8 rounded-lg shadow-lg backdrop-blur-md">
+          <img
+            src={randomResult.image}
+            alt={randomResult.text}
+            className="w-32 h-32 mx-auto mb-4"
+          />
+          <h1 className="text-3xl font-bold mb-2">{randomResult.text}</h1>
+          <p className="text-lg">{randomResult.description}</p>
+        </div>
+        <div className="flex flex-col items-center gap-6 mt-8">
+          <button
+            onClick={handleRetry}
+            className="magic-hover magic-bounce px-6 py-3 bg-green-500 text-white rounded-full shadow-md hover:scale-110 transition-transform"
+          >
+            もう一度引く
+          </button>
+          <div className="flex gap-4">
+            <button
+              onClick={() => handleTwitterShare(randomResult)}
+              className="magic-hover magic-bounce p-3 bg-black/80 rounded-full shadow-md hover:scale-110 transition-transform"
+              aria-label="Xでシェア"
+            >
+              <img 
+                src="/static/icons/x-icon.png" 
+                alt="X (Twitter)" 
+                className="w-6 h-6"
+              />
+            </button>
+            <button
+              onClick={() => handleFacebookShare(randomResult)}
+              className="magic-hover magic-bounce p-3 bg-[#0866FF] rounded-full shadow-md hover:scale-110 transition-transform"
+              aria-label="Facebookでシェア"
+            >
+              <img 
+                src="/static/icons/facebook-icon.png" 
+                alt="Facebook" 
+                className="w-6 h-6"
+              />
+            </button>
+            <button
+              onClick={handleCopyLink}
+              className="magic-hover magic-bounce p-3 bg-[#FC1DE6] rounded-full shadow-md hover:scale-110 transition-transform"
+              aria-label="リンクをコピー"
+            >
+              <img 
+                src="/static/icons/link-icon.png" 
+                alt="リンクをコピー" 
+                className="w-6 h-6"
+              />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
