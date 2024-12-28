@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import AdobeFonts from "./components/AdobeFonts";
+import AdobeFontsScript from "./components/AdobeFontsScript";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "2024年の運勢おみくじ",
@@ -38,9 +35,9 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
-        <AdobeFonts />
+        <AdobeFontsScript />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
