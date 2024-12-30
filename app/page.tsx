@@ -8,7 +8,6 @@ import ShinyButton from "@/app/components/ui/shiny-button";
 export default function Home() {
   const [showButton, setShowButton] = useState(false);
   const [showLoadVideo, setShowLoadVideo] = useState(false);
-  const [showTransitionVideo, setShowTransitionVideo] = useState(false);
   const [showOpeningVideo, setShowOpeningVideo] = useState(false);
   const [showGifBackground, setShowGifBackground] = useState(false);
   const [showInitialBackground, setShowInitialBackground] = useState(true);
@@ -58,23 +57,13 @@ export default function Home() {
 
   useEffect(() => {
     if (showOpeningVideo && openingVideoRef.current) {
+      const video = openingVideoRef.current;
       openingVideoRef.current.load();
-      const playPromise = openingVideoRef.current.play();
-      const preventPause = (e: Event) => {
-        e.preventDefault();
-        if (openingVideoRef.current?.paused) {
-          openingVideoRef.current.play();
-        }
-      };
-      openingVideoRef.current.addEventListener('pause', preventPause);
+      openingVideoRef.current.play();
       
       return () => {
-        const video = openingVideoRef.current;
         if (video) {
-          video.removeEventListener('pause', preventPause);
           video.pause();
-          video.src = '';
-          video.load();
         }
       };
     }
@@ -152,9 +141,9 @@ export default function Home() {
         className="absolute inset-0 w-full h-full"
         style={{
           backgroundImage: showInitialBackground
-            ? "url('/images/background/background.gif')"
+            ? "url(/static/background/background.gif)"
             : showGifBackground
-              ? "url('/images/background/background.gif')"
+              ? "url(/static/background/opening.gif)"
               : "none",
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -227,7 +216,7 @@ export default function Home() {
             >
               <motion.video
                 ref={openingVideoRef}
-                src="/images/video/opening-2.mp4"
+                src="/static/video/opening-2.mp4"
                 autoPlay
                 playsInline
                 muted

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Result, results } from "@/app/data/omikuji";
 import ShinyButton from "@/app/components/ui/shiny-button";
 import { motion } from "framer-motion";
+import Image from 'next/image';
 
 // シェア用のURLとテキストを生成する関数
 const getShareData = (result: Result) => {
@@ -84,14 +85,14 @@ export default function ResultPage() {
     <motion.div
       className="h-screen flex flex-col items-center justify-center bg-cover bg-center text-center relative"
       style={{ 
-        backgroundImage: "url('/images/background/result.png')",
+        backgroundImage: "url(/static/background/result.png)",
         transition: "opacity 0.5s ease-in-out"
       }}
     >
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
         style={{ 
-          backgroundImage: "url('/images/background/background.gif')",
+          backgroundImage: "url(/static/background/background.gif)",
           opacity: 0.4,
         }}
         initial={{ opacity: 0 }}
@@ -107,10 +108,12 @@ export default function ResultPage() {
       >
         <div className="p-8 flex flex-col min-h-screen">
           <div className="mb-4">
-            <img
-              src="/images/background/logo.png"
+            <Image
+              src="/static/background/logo.png"
               alt="おみくじロゴ"
-              className="w-48 h-auto mx-auto mt-4"
+              width={192}
+              height={48}
+              className="mx-auto mt-4"
             />
           </div>
           <div className="flex-grow flex flex-col items-center justify-center -mt-16">
@@ -132,7 +135,7 @@ export default function ResultPage() {
                   aria-label="リンクをコピー"
                 >
                   <img 
-                    src="/images/icons/link-icon.png" 
+                    src="/static/icons/link-icon.png" 
                     alt="リンクをコピー" 
                     className="w-6 h-6"
                   />
@@ -143,7 +146,7 @@ export default function ResultPage() {
                   aria-label="Xでシェア"
                 >
                   <img 
-                    src="/images/icons/x-icon.png" 
+                    src="/static/icons/x-icon.png" 
                     alt="X (Twitter)" 
                     className="w-6 h-6"
                   />
@@ -154,7 +157,7 @@ export default function ResultPage() {
                   aria-label="Facebookでシェア"
                 >
                   <img 
-                    src="/images/icons/facebook-icon.png" 
+                    src="/static/icons/facebook-icon.png" 
                     alt="Facebook" 
                     className="w-6 h-6"
                   />
