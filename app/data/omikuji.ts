@@ -10,7 +10,7 @@ export const results: Result[] = [
   {
     text: "おみくじ結果",
     description: "次の電車は、スマホ封印でいこ！",
-    video: "/static/video/result-1.mp4",
+    video: "/images/video/result-1.mp4",
     textLines: ["次の電車は、","スマホ封印でいこ！"],
     descriptionLines: [
       "窓の外とか人間観察してたら、",
@@ -21,7 +21,7 @@ export const results: Result[] = [
   {
     text: "おみくじ結果",
     description: "一駅手前で降りて、マップに頼らず帰ってみよ！",
-    video: "/static/video/result-2.mp4",
+    video: "/images/video/result-2.mp4",
     textLines: ["一駅手前で降りて、", "マップに頼らず帰ってみよ！"],
     descriptionLines: [
       "いつものルートじゃなくて、",
@@ -33,7 +33,7 @@ export const results: Result[] = [
   {
     text: "おみくじ結果",
     description: "今日はイヤホン外して外の音きいてみよ！",
-    video: "/static/video/result-3.mp4",
+    video: "/images/video/result-3.mp4",
     textLines: ["今日はイヤホン外して", "外の音きいてみよ！"],
     descriptionLines: [
       "鳥の声・車の音とかの生活音を聞いて",
@@ -45,7 +45,7 @@ export const results: Result[] = [
   {
     text: "おみくじ結果",
     description: "目線ちょっと下げて、足元の景色チェックしてみよ？",
-    video: "/static/video/result-4.mp4",
+    video: "/images/video/result-4.mp4",
     textLines: ["目線ちょっと下げて、", "足元の景色チェックしてみよ？"],
     descriptionLines: [
       "地面の模様とか、葉っぱとか小石とか",
@@ -56,7 +56,7 @@ export const results: Result[] = [
   {
     text: "おみくじ結果",
     description: "今日は視線ちょい上げで過ごしてこ！",
-    video: "/static/video/result-5.mp4",
+    video: "/images/video/result-5.mp4",
     textLines: ["今日は視線ちょい上げで", "過ごしてみよ！"],
     descriptionLines: [
       "天井や壁の模様、看板とか屋根とか",
@@ -67,7 +67,7 @@ export const results: Result[] = [
   {
     text: "おみくじ結果",
     description: "明日は早起きして美味しい朝ごはん食べに行かない？",
-    video: "/static/video/result-6.mp4",
+    video: "/images/video/result-6.mp4",
     textLines: ["明日は早起きして", "美味しい朝ごはん食べに行かない？"],
     descriptionLines: [
       "明日の朝食いいもの食べる！",
@@ -78,7 +78,7 @@ export const results: Result[] = [
   {
     text: "おみくじ結果",
     description: "次のごはんは、スマホ見ずに食べよ！",
-    video: "/static/video/result-7.mp4",
+    video: "/images/video/result-7.mp4",
     textLines: ["次のごはんは、", "スマホ見ずに食べよ！"],
     descriptionLines: [
       "スマホ見ずに食べるのも",

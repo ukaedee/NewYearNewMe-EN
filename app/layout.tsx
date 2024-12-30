@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: "新年の運勢を占うおみくじアプリです。あなたの2024年の運勢は...？",
     images: [
       {
-        url: "/static/background/ogp.png",
+        url: "/images/background/ogp.png",
         width: 1200,
         height: 630,
         alt: "NewYear NewMe",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "NewYear NewMe",
     description: "新年の運勢を占うおみくじアプリです。あなたの2024年の運勢は...？",
-    images: ["/static/background/ogp.png"],
+    images: ["/images/background/ogp.png"],
   },
 };
 

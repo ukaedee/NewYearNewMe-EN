@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: "あなたの2024年の運勢が決まりました！",
     images: [
       {
-        url: "/static/ogp-result.png", // 結果用のOGP画像
+        url: "/images/ogp-result.png", // 結果用のOGP画像
         width: 1200,
         height: 630,
         alt: "おみくじ結果",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "おみくじ結果 | 2024年の運勢おみくじ",
     description: "あなたの2024年の運勢が決まりました！",
-    images: ["/static/ogp-result.png"],
+    images: ["/images/ogp-result.png"],
   },
 };
 

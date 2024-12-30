@@ -152,9 +152,9 @@ export default function Home() {
         className="absolute inset-0 w-full h-full"
         style={{
           backgroundImage: showInitialBackground
-            ? "url('/static/background/background.gif')"
+            ? "url('/images/background/background.gif')"
             : showGifBackground
-              ? "url('/static/background/background.gif')"
+              ? "url('/images/background/background.gif')"
               : "none",
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -227,7 +227,7 @@ export default function Home() {
             >
               <motion.video
                 ref={openingVideoRef}
-                src="/static/video/opening-2.mp4"
+                src="/images/video/opening-2.mp4"
                 autoPlay
                 playsInline
                 muted
