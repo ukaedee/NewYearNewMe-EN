@@ -4,7 +4,7 @@ import "./globals.css";
 import { AnimatePresence } from "framer-motion";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('http://localhost:3000'),
+  metadataBase: new URL('https://new-year-new-me-six.vercel.app/'),
   title: "NewYear NewMe",
   description: "運勢...ではなく、新しく挑戦をしたいあなたへ提案をするおみくじアプリです？",
   icons: {
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
         alt: "NewYear NewMe",
       },
     ],
+    url: 'https://new-year-new-me-six.vercel.app/',
     locale: "ja_JP",
     type: "website",
   },
