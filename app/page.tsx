@@ -154,7 +154,7 @@ export default function Home() {
           backgroundImage: showInitialBackground
             ? "url('/static/background/background.gif')"
             : showGifBackground
-              ? "url('/static/background/baxckground.gif')"
+              ? "url('/static/background/background.gif')"
               : "none",
           backgroundSize: "cover",
           backgroundPosition: "center",
