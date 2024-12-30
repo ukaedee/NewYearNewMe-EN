@@ -105,7 +105,7 @@ export default function Home() {
       setShowLoadVideo(false);
       // すぐに結果ぺージに遷移
       const resultIndex = results.findIndex(r => r.text === randomResult?.text);
-      router.push(`/result?id=${resultIndex}`);
+      router.push(`/result?id=${resultIndex}`, { scroll: false });
     } catch (error) {
       console.error("ルート遷移に失敗しました", error);
     }
@@ -114,11 +114,6 @@ export default function Home() {
   const handleVideoTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const video = e.target as HTMLVideoElement;
     const timeLeft = video.duration - video.currentTime;
-    
-    // 動画終了1秒前からブラーエフェクトを開始
-    if (timeLeft < 1 && !isVideoEnding) {
-      setIsVideoEnding(true);
-    }
   };
 
   // 動画終了時のハンドラー

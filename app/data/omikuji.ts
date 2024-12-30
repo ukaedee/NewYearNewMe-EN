@@ -8,7 +8,7 @@ export interface Result {
 
 export const results: Result[] = [
   {
-    text: "おみくじ結果",
+    text: "次の電車は、スマホ封印でいこ！",
     description: "次の電車は、スマホ封印でいこ！",
     video: "/static/video/result-1.mp4",
     textLines: ["次の電車は、","スマホ封印でいこ！"],
@@ -19,7 +19,7 @@ export const results: Result[] = [
     ]
   },
   {
-    text: "おみくじ結果",
+    text: "一駅手前で降りて、マップに頼らず帰ってみよ！",
     description: "一駅手前で降りて、マップに頼らず帰ってみよ！",
     video: "/static/video/result-2.mp4",
     textLines: ["一駅手前で降りて、", "マップに頼らず帰ってみよ！"],
@@ -31,7 +31,7 @@ export const results: Result[] = [
     ]
   },
   {
-    text: "おみくじ結果",
+    text: "今日はイヤホン外して外の音きいてみよ！",
     description: "今日はイヤホン外して外の音きいてみよ！",
     video: "/static/video/result-3.mp4",
     textLines: ["今日はイヤホン外して", "外の音きいてみよ！"],
@@ -43,7 +43,7 @@ export const results: Result[] = [
   },
  
   {
-    text: "おみくじ結果",
+    text: "目線ちょっと下げて、足元の景色チェックしてみよ？",
     description: "目線ちょっと下げて、足元の景色チェックしてみよ？",
     video: "/static/video/result-4.mp4",
     textLines: ["目線ちょっと下げて、", "足元の景色チェックしてみよ？"],
@@ -54,7 +54,7 @@ export const results: Result[] = [
     ]
   },
   {
-    text: "おみくじ結果",
+    text: "今日は視線ちょい上げで過ごしてこ！",
     description: "今日は視線ちょい上げで過ごしてこ！",
     video: "/static/video/result-5.mp4",
     textLines: ["今日は視線ちょい上げで", "過ごしてみよ！"],
@@ -65,7 +65,7 @@ export const results: Result[] = [
     ]
   },
   {
-    text: "おみくじ結果",
+    text: "明日は早起きして美味しい朝ごはん食べに行かない？",
     description: "明日は早起きして美味しい朝ごはん食べに行かない？",
     video: "/static/video/result-6.mp4",
     textLines: ["明日は早起きして", "美味しい朝ごはん食べに行かない？"],
@@ -76,7 +76,7 @@ export const results: Result[] = [
     ]
   },
   {
-    text: "おみくじ結果",
+    text: "次のごはんは、スマホ見ずに食べよ！",
     description: "次のごはんは、スマホ見ずに食べよ！",
     video: "/static/video/result-7.mp4",
     textLines: ["次のごはんは、", "スマホ見ずに食べよ！"],

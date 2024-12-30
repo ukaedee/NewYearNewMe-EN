@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import AdobeFontsScript from "./components/AdobeFontsScript";
 import "./globals.css";
+import { AnimatePresence } from "framer-motion";
 
 export const metadata: Metadata = {
   metadataBase: new URL('http://localhost:3000'),
@@ -46,7 +47,11 @@ export default function RootLayout({
         </style>
         <AdobeFontsScript />
       </head>
-      <body>{children}</body>
+      <body>
+        <AnimatePresence mode="wait">
+          {children}
+        </AnimatePresence>
+      </body>
     </html>
   );
 }

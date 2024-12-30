@@ -83,6 +83,16 @@ export default function ResultPage() {
 
   return (
     <motion.div
+      initial={{ 
+        opacity: 0,
+      }}
+      animate={{ 
+        opacity: 1,
+      }}
+      exit={{ 
+        opacity: 0,
+      }}
+      transition={{ duration: 0.8 }}
       className="h-screen flex flex-col items-center justify-center bg-cover bg-center text-center relative"
       style={{ 
         backgroundImage: "url(/static/background/result.png)",
@@ -97,14 +107,23 @@ export default function ResultPage() {
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.4 }}
-        transition={{ duration: 1.5 }}
+        transition={{ duration: 1 }}
       />
       
       <motion.div
         className="relative z-10 w-full"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 3, delay: 1 }}
+        initial={{ 
+          opacity: 0,
+          y: 20
+        }}
+        animate={{ 
+          opacity: 1,
+          y: 0
+        }}
+        transition={{ 
+          duration: 1,
+          delay: 0.5
+        }}
       >
         <div className="p-8 flex flex-col min-h-screen">
           <div className="mb-4">
@@ -118,11 +137,11 @@ export default function ResultPage() {
           </div>
           <div className="flex-grow flex flex-col items-center justify-center -mt-16">
             <h3 className="text-xl font-bold mb-2 text-white font-noto-sans-jp">
-              <div className="text-[32px] leading-relaxed">
+              <div className="text-[28px] leading-relaxed">
                 {formatText(randomResult.text)}
               </div>
             </h3>
-            <p className="text-[18px] text-white font-noto-sans-jp font-bold leading-normal mt-6">
+            <p className="text-[16px] text-white font-noto-sans-jp font-bold leading-normal ">
               {formatText(randomResult.description, true)}
             </p>
           </div>

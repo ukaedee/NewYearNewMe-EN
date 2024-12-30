@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "おみくじ結果 | 2024年の運勢おみくじ",
-  description: "あなたの2024年の運勢が決まりました！",
+  title: "おみくじ結果 | NewYear-NewMe",
+  description: "新しいチャレンジ",
   openGraph: {
-    title: "おみくじ結果 | 2024年の運勢おみくじ",
-    description: "あなたの2024年の運勢が決まりました！",
+    title: "おみくじ結果 | NewYear-NewM",
+    description: "新しいチャレンジ",
     images: [
       {
         url: "/images/ogp-result.png", // 結果用のOGP画像
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "おみくじ結果 | 2024年の運勢おみくじ",
-    description: "あなたの2024年の運勢が決まりました！",
+    title: "おみくじ結果 | NewYear-NewM",
+    description: "新しいチャレンジ",
     images: ["/images/ogp-result.png"],
   },
 };
