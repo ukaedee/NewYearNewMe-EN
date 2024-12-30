@@ -4,14 +4,20 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Result, results } from "@/app/data/omikuji";
 import ShinyButton from "@/app/components/ui/shiny-button";
-import GradualSpacing from "@/app/components/ui/gradual-spacing";
 
+const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+const getCloudinaryUrl = (path: string) => 
+  `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/${path}`;
 
 export default function Home() {
   const [showButton, setShowButton] = useState(false);
   const [showLoadVideo, setShowLoadVideo] = useState(false);
+  const [showTransitionVideo, setShowTransitionVideo] = useState(false);
   const [showOpeningVideo, setShowOpeningVideo] = useState(false);
+  const [showGifBackground, setShowGifBackground] = useState(false);
+  const [showInitialBackground, setShowInitialBackground] = useState(true);
   const [showText, setShowText] = useState(false);
+  const [showSecondText, setShowSecondText] = useState(false);
   const [isVideoEnding, setIsVideoEnding] = useState(false);
   const [randomResult, setRandomResult] = useState<Result | null>(null);
   const router = useRouter();
@@ -19,17 +25,28 @@ export default function Home() {
   const loadVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // 文字を表示
+    // 1回目のテキストを表示
     const textTimer = setTimeout(() => {
       setShowText(true);
     }, 2000);
 
-    // 文字を非表示に
+    // 1回目のテキストを非表示に
     const hideTextTimer = setTimeout(() => {
       setShowText(false);
-    }, 12000);
+    }, 5000);
 
-    // 文字のブラーアウト後にオープニン画を表示
+    // 2回目のテキストを表示
+    const secondTextTimer = setTimeout(() => {
+      setShowSecondText(true);
+    }, 6000);
+
+    // 2回目のテキストを非表示に
+    const hideSecondTextTimer = setTimeout(() => {
+      setShowSecondText(false);
+      setShowInitialBackground(false);
+    }, 10000);
+
+    // オープニング動画を表示
     const openingVideoTimer = setTimeout(() => {
       setShowOpeningVideo(true);
     }, 13000);
@@ -37,6 +54,8 @@ export default function Home() {
     return () => {
       clearTimeout(textTimer);
       clearTimeout(hideTextTimer);
+      clearTimeout(secondTextTimer);
+      clearTimeout(hideSecondTextTimer);
       clearTimeout(openingVideoTimer);
     };
   }, []);
@@ -98,23 +117,13 @@ export default function Home() {
 
   const handleVideoEnd = () => {
     try {
-      // まずBlur outアニメーション
       setShowLoadVideo(false);
-      // 選ばれた結果のインデックスをクエリパラメータとして渡す
+      // すぐに結果ぺージに遷移
       const resultIndex = results.findIndex(r => r.text === randomResult?.text);
-      // アニメーション完了後にページ遷移
-      setTimeout(() => {
-        router.push(`/result?id=${resultIndex}`);
-      }, 1000);
+      router.push(`/result?id=${resultIndex}`);
     } catch (error) {
       console.error("ルート遷移に失敗しました", error);
     }
-  };
-
-  // 動画終了時のハンドラー
-  const handleOpeningVideoEnd = () => {
-    setShowOpeningVideo(false);
-    setShowButton(true);
   };
 
   const handleVideoTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
@@ -127,18 +136,30 @@ export default function Home() {
     }
   };
 
+  // 動画終了時のハンドラー
+  const handleOpeningVideoEnd = () => {
+    setShowOpeningVideo(false);
+    setShowGifBackground(true);
+    setShowButton(true);
+  };
+
   return (
     <motion.div
       initial={{ filter: "blur(10px)", opacity: 0 }}
       animate={{ filter: "blur(0px)", opacity: 1 }}
-      transition={{ duration: 2 }}
+      exit={{ filter: "blur(10px)", opacity: 0 }}
+      transition={{ duration: 1 }}
       style={{ overscrollBehaviorX: "auto" }}
       className="h-screen w-screen overflow-hidden relative"
     >
       <div 
         className="absolute inset-0 w-full h-full"
         style={{
-          backgroundImage: "url('/static/background/background.gif')",
+          backgroundImage: showInitialBackground
+            ? "url('/static/background/background.gif')"
+            : showGifBackground
+              ? "url('/static/background/opening.gif')"
+              : "none",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -154,55 +175,29 @@ export default function Home() {
                 animate={{ opacity: 1, filter: "blur(0px)" }}
                 exit={{ opacity: 0, filter: "blur(10px)", position: "absolute" }}
                 transition={{ duration: 1 }}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-start w-full max-w-[90%] md:max-w-[80%] lg:max-w-[60%]"
+                className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[90%]"
               >
-                <GradualSpacing
-                  text="今年のおみくじは、"
-                  duration={0.8}
-                  delayMultiple={0.1}
-                  startDelay={0}
-                  className="text-white text-2xl sm:text-3xl md:text-4xl font-noto-sans-jp font-bold"
-                  framerProps={{
-                    hidden: { opacity: 0, x: -20 },
-                    visible: { opacity: 1, x: 0 },
-                  }}
-                />
-                <div className="h-1 sm:h-2 md:h-3" />
-                <GradualSpacing
-                  text="運勢なんかじゃなくてきっかけ"
-                  duration={0.8}
-                  delayMultiple={0.1}
-                  startDelay={4}
-                  className="text-white text-2xl sm:text-3xl md:text-4xl font-noto-sans-jp font-bold"
-                  framerProps={{
-                    hidden: { opacity: 0, x: -20 },
-                    visible: { opacity: 1, x: 0 },
-                  }}
-                />
-                <div className="h-1 sm:h-2 md:h-3" />
-                <GradualSpacing
-                  text="ほんの少しの新しい挑戦が、"
-                  duration={0.8}
-                  delayMultiple={0.1}
-                  startDelay={6}
-                  className="text-white text-2xl sm:text-3xl md:text-4xl font-noto-sans-jp font-bold"
-                  framerProps={{
-                    hidden: { opacity: 0, x: -20 },
-                    visible: { opacity: 1, x: 0 },
-                  }}
-                />
-                <div className="h-1 sm:h-2 md:h-3" />
-                <GradualSpacing
-                  text="新しい自分を連れてきてくれるかも"
-                  duration={0.8}
-                  delayMultiple={0.1}
-                  startDelay={8}
-                  className="text-white text-2xl sm:text-3xl md:text-4xl font-noto-sans-jp font-bold"
-                  framerProps={{
-                    hidden: { opacity: 0, x: -20 },
-                    visible: { opacity: 1, x: 0 },
-                  }}
-                />
+                <div className="text-left text-[35px] leading-relaxed text-white font-noto-sans-jp font-bold">
+                  今年のおみくじは、<br />
+                  運勢じゃなくて、<br />
+                  きっかけとかどう？
+                </div>
+              </motion.div>
+            )}
+            {showSecondText && (
+              <motion.div
+                initial={{ opacity: 0, filter: "blur(10px)" }}
+                animate={{ opacity: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, filter: "blur(10px)", position: "absolute" }}
+                transition={{ duration: 1 }}
+                className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[90%]"
+              >
+                <div className="text-left text-[35px] leading-relaxed text-white font-noto-sans-jp font-bold">
+                  ほんの少し<br />
+                  画面から離れる挑戦が、<br />
+                  新しい自分を<br />
+                  連れてきてくるかも
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -212,7 +207,8 @@ export default function Home() {
                 initial={{ opacity: 0, filter: "blur(10px)" }}
                 animate={{ opacity: 1, filter: "blur(0px)" }}
                 exit={{ opacity: 0, filter: "blur(10px)" }}
-                transition={{ duration: 1 }}
+                transition={{ duration: 2 }}
+                className="fixed bottom-20 left-1/2 -translate-x-1/2"
               >
                 <ShinyButton 
                   onClick={handleButtonClick}
@@ -235,7 +231,7 @@ export default function Home() {
             >
               <motion.video
                 ref={openingVideoRef}
-                src="/static/video/opening.mp4"
+                src={getCloudinaryUrl('video/opening-2.mp4')}
                 autoPlay
                 playsInline
                 muted

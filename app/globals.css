@@ -83,5 +83,6 @@ body {
   .writing-vertical-rl {
     writing-mode: vertical-rl;
     text-orientation: upright;
+    font-family: 'fot-tsukuaoldmin-pr6n', serif !important;
   }
 }

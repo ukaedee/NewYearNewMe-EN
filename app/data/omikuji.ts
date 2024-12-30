@@ -1,44 +1,90 @@
-export type Result = {
+export interface Result {
   text: string;
   description: string;
   video: string;
-};
+  textLines: string[];
+  descriptionLines: string[];
+}
 
 export const results: Result[] = [
   {
-    text: "次の電車、スマホ封印でいこ！",
-    description: "窓の外とか人間観察してたら、意外とリフレッシュできるかも！目的地つくまで、ぼーっとしてみよ",
-    video: "/static/video/result-1.mp4"
+    text: "おみくじ結果",
+    description: "次の電車は、スマホ封印でいこ！",
+    video: getCloudinaryUrl('video/result-1.mp4'),
+    textLines: ["次の電車は、","スマホ封印でいこ！"],
+    descriptionLines: [
+      "窓の外とか人間観察してたら、",
+      "意外とリフレッシュできるかも！",
+      "目的地つくまで、ぼーっとしてみよ",
+    ]
   },
   {
-    text: "一駅手前で降りて、マップに頼らず帰ってみよ！",
-    description: "いつものルートじゃなくて、気まぐれで別の道歩いてみよう。寄り道して帰るのも悪くないんじゃない？",
-    video: "/static/video/result-2.mp4"
+    text: "おみくじ結果",
+    description: "一駅手前で降りて、マップに頼らず帰ってみよ！",
+    video: "/static/video/result-2.mp4",
+    textLines: ["一駅手前で降りて、", "マップに頼らず帰ってみよ！"],
+    descriptionLines: [
+      "いつものルートじゃなくて、",
+      "気まぐれで別の道歩いてみよう。",
+      "寄り道して帰るのも",
+      "たまには悪くないんじゃない？"
+    ]
   },
   {
-    text: "今日はイヤホン外して外の音きいてみよ！",
-    description: "音楽もいいけど、静かな時間って意外と心整うんよね〜！自分だけのまったりタイム、ゆる〜く過ごそ",
-    video: "/static/video/result-3.mp4"
+    text: "おみくじ結果",
+    description: "今日はイヤホン外して外の音きいてみよ！",
+    video: "/static/video/result-3.mp4",
+    textLines: ["今日はイヤホン外して", "外の音きいてみよ！"],
+    descriptionLines: [
+      "鳥の声・車の音とかの生活音を聞いて",
+      "今の音ってなんだろとか考えながら",
+      "ぼーっと過ごす時間も時には必要と思うんだよね〜"
+    ]
+  },
+ 
+  {
+    text: "おみくじ結果",
+    description: "目線ちょっと下げて、足元の景色チェックしてみよ？",
+    video: "/static/video/result-4.mp4",
+    textLines: ["目線ちょっと下げて、", "足元の景色チェックしてみよ？"],
+    descriptionLines: [
+      "地面の模様とか、葉っぱとか小石とか",
+      "普段よりゆっくり歩いて",
+      "意外と新しい発見があって面白いんだよね〜"
+    ]
   },
   {
-    text: "目線ちょっと下げて、足元の景色チェックしてみよ？",
-    description: "地面の模様とか歩道のひび割れ、葉っぱとか小石とか、普段スルーしてる景色にちょい注目してみ？意外と新しい発見あっておもろいかもじゃん！",
-    video: "/static/video/result-4.mp4"
+    text: "おみくじ結果",
+    description: "今日は視線ちょい上げで過ごしてこ！",
+    video: "/static/video/result-5.mp4",
+    textLines: ["今日は視線ちょい上げで", "過ごしてみよ！"],
+    descriptionLines: [
+      "天井や壁の模様、看板とか屋根とか",
+      "どんな材質・色・模様なのか",
+      "観察しながら歩くの楽しいんだよ！意外と！",
+    ]
   },
   {
-    text: "今日は視線ちょい上げで過ごしてこ！",
-    description: "朝とか夜の空、天井や壁の模様、建物の屋根とか雲とか、ちょい注目してみ？普段スルーしがちな景色に、新しい発見あるかもでワクワクじゃん！",
-    video: "/static/video/result-5.mp4"
+    text: "おみくじ結果",
+    description: "明日は早起きして美味しい朝ごはん食べに行かない？",
+    video: "/static/video/result-6.mp4",
+    textLines: ["明日は早起きして", "美味しい朝ごはん食べに行かない？"],
+    descriptionLines: [
+      "明日の朝食いいもの食べる！",
+      "って決めたら明日が楽しみすぎない？！",
+      "スワイプやめて、明日に向けて休もうぜ〜！"
+    ]
   },
   {
-    text: "明日は早起きして美味しい朝ごはん食べに行かない？",
-    description: "明日の朝食いいもの食べたら１日テンション上がるよね〜！今日はスマホを置いて早めに寝よう",
-    video: "/static/video/result-6.mp4"
+    text: "おみくじ結果",
+    description: "次のごはんは、スマホ見ずに食べよ！",
+    video: "/static/video/result-7.mp4",
+    textLines: ["次のごはんは、", "スマホ見ずに食べよ！"],
+    descriptionLines: [
+      "スマホ見ずに食べるのも",
+      "意外と新しい発見があって面白いんだよ！",
+      "hoge"
+    ]
   },
-  {
-    text: "次のごはんは、スマホ見ずに食べよ！",
-    description: "文章考え中だお",
-    video: "/static/video/result-7.mp4"
-  }
-
+ 
 ]; 

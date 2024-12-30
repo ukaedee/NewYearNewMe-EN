@@ -1,6 +1,6 @@
 "use client";
 export const dynamic = "force-dynamic";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Result, results } from "@/app/data/omikuji";
 import ShinyButton from "@/app/components/ui/shiny-button";
@@ -57,6 +57,21 @@ export default function ResultPage() {
     alert("リンクがコピーされました！");
   };
 
+  const formatText = (text: string, isDescription: boolean = false): React.ReactElement => {
+    if (!randomResult) return <></>;
+    const lines = isDescription ? randomResult.descriptionLines : randomResult.textLines;
+    return (
+      <>
+        {lines.map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            {index < lines.length - 1 && <br />}
+          </React.Fragment>
+        ))}
+      </>
+    );
+  };
+
   if (!randomResult) {
     return (
       <div className="h-screen flex items-center justify-center">
@@ -67,85 +82,98 @@ export default function ResultPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, filter: "blur(10px)" }}
-      animate={{ opacity: 1, filter: "blur(0px)" }}
-      transition={{ duration: 1 }}
       className="h-screen flex flex-col items-center justify-center bg-cover bg-center text-center relative"
-      style={{ backgroundImage: "url('/static/background/background.gif')" }}
+      style={{ 
+        backgroundImage: "url('/static/background/result.png')",
+        transition: "opacity 0.5s ease-in-out"
+      }}
     >
-      <div 
-        className="absolute inset-0 bg-cover bg-center opacity-30"
+      <motion.div
+        className="absolute inset-0 bg-cover bg-center"
         style={{ 
-          backgroundImage: "url('/static/result/image1.png')",
-          mixBlendMode: "overlay"
+          backgroundImage: "url('/static/background/background.gif')",
+          opacity: 0.4,
         }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.4 }}
+        transition={{ duration: 1.5 }}
       />
       
-      <div 
-        className="absolute inset-0 bg-[#0866FF]/10 backdrop-blur-[1px]"
-        style={{
-          backdropFilter: "saturate(150%)"
-        }}
-      />
-      
-      <div className="relative z-10">
-        <div className="p-8">
-          <div className="mb-8">
+      <motion.div
+        className="relative z-10 w-full"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 3, delay: 1 }}
+      >
+        <div className="p-8 flex flex-col min-h-screen">
+          <div className="mb-4">
             <img
               src="/static/background/logo.png"
               alt="おみくじロゴ"
-              className="w-48 h-auto mx-auto"
+              className="w-48 h-auto mx-auto mt-4"
             />
           </div>
-          <h1 className="text-3xl font-bold mb-2 text-white">{randomResult.text}</h1>
-          <p className="text-lg text-white">{randomResult.description}</p>
-        </div>
-        <div className="flex flex-col items-center gap-6 mt-8">
-          <div className="flex gap-4">
-            <button
-              onClick={() => handleTwitterShare(randomResult)}
-              className="magic-hover magic-bounce p-3 bg-black/80 rounded-full shadow-md hover:scale-110 transition-transform"
-              aria-label="Xでシェア"
-            >
-              <img 
-                src="/static/icons/x-icon.png" 
-                alt="X (Twitter)" 
-                className="w-6 h-6"
-              />
-            </button>
-            <button
-              onClick={() => handleFacebookShare(randomResult)}
-              className="magic-hover magic-bounce p-3 bg-[#0866FF] rounded-full shadow-md hover:scale-110 transition-transform"
-              aria-label="Facebookでシェア"
-            >
-              <img 
-                src="/static/icons/facebook-icon.png" 
-                alt="Facebook" 
-                className="w-6 h-6"
-              />
-            </button>
-            <button
-              onClick={handleCopyLink}
-              className="magic-hover magic-bounce p-3 bg-[#FC1DE6] rounded-full shadow-md hover:scale-110 transition-transform"
-              aria-label="リンクをコピー"
-            >
-              <img 
-                src="/static/icons/link-icon.png" 
-                alt="リンクをコピー" 
-                className="w-6 h-6"
-              />
-            </button>
+          <div className="flex-grow flex flex-col items-center justify-center -mt-16">
+            <h3 className="text-xl font-bold mb-2 text-white font-noto-sans-jp">
+              <div className="text-[32px] leading-relaxed">
+                {formatText(randomResult.text)}
+              </div>
+            </h3>
+            <p className="text-[18px] text-white font-noto-sans-jp font-bold leading-normal mt-6">
+              {formatText(randomResult.description, true)}
+            </p>
           </div>
-          <ShinyButton 
-            onClick={handleRetry}
-            style={{ 
-              "--primary": "142 100% 50%"
-            } as React.CSSProperties}
-          >
-            もう一度引く
-          </ShinyButton>
+          <div className="flex flex-col items-center gap-6">
+            <div>
+              <div className="flex gap-4">
+                <button
+                  onClick={handleCopyLink}
+                  className="magic-hover magic-bounce p-3 bg-[#FFDCFB] rounded-full shadow-md hover:scale-110 transition-transform"
+                  aria-label="リンクをコピー"
+                >
+                  <img 
+                    src="/static/icons/link-icon.png" 
+                    alt="リンクをコピー" 
+                    className="w-6 h-6"
+                  />
+                </button>
+                <button
+                  onClick={() => handleTwitterShare(randomResult)}
+                  className="magic-hover magic-bounce p-3 bg-black/80 rounded-full shadow-md hover:scale-110 transition-transform"
+                  aria-label="Xでシェア"
+                >
+                  <img 
+                    src="/static/icons/x-icon.png" 
+                    alt="X (Twitter)" 
+                    className="w-6 h-6"
+                  />
+                </button>
+                <button
+                  onClick={() => handleFacebookShare(randomResult)}
+                  className="magic-hover magic-bounce p-3 bg-[#0866FF] rounded-full shadow-md hover:scale-110 transition-transform"
+                  aria-label="Facebookでシェア"
+                >
+                  <img 
+                    src="/static/icons/facebook-icon.png" 
+                    alt="Facebook" 
+                    className="w-6 h-6"
+                  />
+                </button>
+              </div>
+            </div>
+            <div className="mb-8">
+              <ShinyButton 
+                onClick={handleRetry}
+                style={{ 
+                  "--primary": "142 100% 50%"
+                } as React.CSSProperties}
+              >
+                もう一度引く
+              </ShinyButton>
+            </div>
+          </div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

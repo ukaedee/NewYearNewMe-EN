@@ -48,30 +48,39 @@ interface ShinyButtonProps extends HTMLMotionProps<"button"> {
 const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
   ({ children, className, ...props }, ref) => {
     return (
-      <motion.button
-        ref={ref}
-        {...animationProps}
-        {...props}
-        className={cn(
-          "relative rounded-full px-16 py-5 font-medium",
-          "transition-all duration-300 ease-in-out",
-          "hover:shadow-[0_0_25px_rgba(255,255,255,0.5)]",
-          "bg-black/40 backdrop-blur-2xl backdrop-saturate-150",
-          "border-2 border-white/70",
-          "font-['fot-tsukuaoldmin-pr6n']",
-          className,
-        )}
-      >
-        <span
-          className="relative block size-full text-3xl uppercase tracking-wide text-white"
-          style={{
-            maskImage:
-              "linear-gradient(-75deg,rgba(255,255,255,1) calc(var(--x) + 20%),transparent calc(var(--x) + 30%),rgba(255,255,255,1) calc(var(--x) + 100%))",
-          }}
+      <div className="relative isolate">
+        <div 
+          className="absolute inset-0 bg-[#B302FF]/30 blur-xl rounded-full -z-10"
+          aria-hidden="true"
+        />
+        <motion.button
+          ref={ref}
+          {...animationProps}
+          {...props}
+          className={cn(
+            "relative rounded-full px-24 py-5 font-medium",
+            "transition-all duration-300 ease-in-out",
+            "hover:shadow-[0_0_25px_rgba(255,255,255,0.5)]",
+            "bg-[#B302FF]/60 backdrop-blur-2xl",
+            "border border-gray-200/30",
+            "shadow-lg",
+            "font-noto-sans-jp font-bold",
+            className,
+          )}
         >
-          {children}
-        </span>
-      </motion.button>
+          <span
+            className={cn(
+              "relative block size-full text-xl uppercase tracking-wide text-white whitespace-nowrap"
+            )}
+            style={{
+              maskImage:
+                "linear-gradient(-75deg,rgba(255,255,255,1) calc(var(--x) + 20%),transparent calc(var(--x) + 30%),rgba(255,255,255,1) calc(var(--x) + 100%))",
+            }}
+          >
+            {children}
+          </span>
+        </motion.button>
+      </div>
     );
   },
 );
