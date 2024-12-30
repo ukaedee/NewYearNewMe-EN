@@ -130,14 +130,14 @@ export default function ResultPage() {
             <Image
               src="/static/background/logo.png"
               alt="おみくじロゴ"
-              width={192}
-              height={48}
+              width={144}
+              height={36}
               className="mx-auto mt-4"
             />
           </div>
           <div className="flex-grow flex flex-col items-center justify-center -mt-16">
             <h3 className="text-xl font-bold mb-2 text-white font-noto-sans-jp">
-              <div className="text-[28px] leading-relaxed">
+              <div className="text-[24px] leading-relaxed">
                 {formatText(randomResult.text)}
               </div>
             </h3>
@@ -145,7 +145,7 @@ export default function ResultPage() {
               {formatText(randomResult.description, true)}
             </p>
           </div>
-          <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-col items-center gap-6 ">
             <div>
               <div className="flex gap-4">
                 <button

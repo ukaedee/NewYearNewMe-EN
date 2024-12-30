@@ -6,13 +6,18 @@ import { AnimatePresence } from "framer-motion";
 export const metadata: Metadata = {
   metadataBase: new URL('http://localhost:3000'),
   title: "NewYear NewMe",
-  description: "新年の運勢を占うおみくじアプリです。あなたの2024年の運勢は...？",
+  description: "運勢...ではなく、新しく挑戦をしたいあなたへ提案をするおみくじアプリです？",
+  icons: {
+    icon: '/static/icons/favicon.png',
+    shortcut: '/static/icons/favicon.png',
+    apple: '/static/icons/favicon.png',
+  },
   openGraph: {
     title: "NewYear NewMe",
-    description: "新年の運勢を占うおみくじアプリです。あなたの2024年の運勢は...？",
+    description: "運勢...ではなく、新しく挑戦をしたいあなたへ提案をするおみくじアプリです？",
     images: [
       {
-        url: "/images/background/ogp.png",
+        url: "/static/background/OGP.png",
         width: 1200,
         height: 630,
         alt: "NewYear NewMe",
@@ -24,8 +29,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "NewYear NewMe",
-    description: "新年の運勢を占うおみくじアプリです。あなたの2024年の運勢は...？",
-    images: ["/images/background/ogp.png"],
+    description: "運勢...ではなく、新しく挑戦をしたいあなたへ提案をするおみくじアプリです",
+    images: ["/static/background/OGP.png"],
   },
 };
 
