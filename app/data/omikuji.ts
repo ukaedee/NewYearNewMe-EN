@@ -10,7 +10,7 @@ export const results: Result[] = [
   {
     text: "おみくじ結果",
     description: "次の電車は、スマホ封印でいこ！",
-    video: getCloudinaryUrl('video/result-1.mp4'),
+    video: "/static/video/result-1.mp4",
     textLines: ["次の電車は、","スマホ封印でいこ！"],
     descriptionLines: [
       "窓の外とか人間観察してたら、",

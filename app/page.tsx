@@ -5,10 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Result, results } from "@/app/data/omikuji";
 import ShinyButton from "@/app/components/ui/shiny-button";
 
-const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-const getCloudinaryUrl = (path: string) => 
-  `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/${path}`;
-
 export default function Home() {
   const [showButton, setShowButton] = useState(false);
   const [showLoadVideo, setShowLoadVideo] = useState(false);
@@ -158,7 +154,7 @@ export default function Home() {
           backgroundImage: showInitialBackground
             ? "url('/static/background/background.gif')"
             : showGifBackground
-              ? "url('/static/background/opening.gif')"
+              ? "url('/static/background/baxckground.gif')"
               : "none",
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -231,7 +227,7 @@ export default function Home() {
             >
               <motion.video
                 ref={openingVideoRef}
-                src={getCloudinaryUrl('video/opening-2.mp4')}
+                src="/static/video/opening-2.mp4"
                 autoPlay
                 playsInline
                 muted
