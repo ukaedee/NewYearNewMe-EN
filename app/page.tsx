@@ -103,6 +103,7 @@ export default function Home() {
   const handleVideoEnd = () => {
     try {
       setShowLoadVideo(false);
+      setShowGifBackground(false);
       // すぐに結果ぺージに遷移
       const resultIndex = results.findIndex(r => r.text === randomResult?.text);
       router.push(`/result?id=${resultIndex}`, { scroll: false });
