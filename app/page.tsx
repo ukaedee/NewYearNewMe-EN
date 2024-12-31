@@ -14,11 +14,11 @@ interface Message {
 const messages: Message[] = [
   { text: "新年の抱負とか立てても、続いたことないの私だけ？？ｗ", isB: false },
   { text: "それなｗ毎年2月には忘れてる^^;", isB: true },
-  { text: "でもさ、今年はSNSとかちょっと離れて、\n 自分見つめ直す時間増やしたいんだよね🪄🧚", isB: false },
-  { text: "お〜！めちゃいいじゃん！💖 でもさ、今更1日スマホ手放すとか厳しくね？", isB: true },
+  { text: "でもさ、今年はSNSとかちょっと離れて、自分見つめ直す時間増やしたいんだよね🪄🧚", isB: false },
+  { text: "お〜！めちゃいいじゃん！💖 でもさ、1日スマホ手放すとか現実味なさすぎない？", isB: true },
   { text: "いや、それなんよ！絶対気になっちゃうし〜😭\n軽く意識するキッカケとか欲しいよね", isB: false },
-  { text: "たしかに！\nちょっとやってみるか〜くらいのテンションなら私もイケそう！", isB: true },
-  { text: "そういうヒントくれるアプリとかあったら、楽しそうじゃない？", isB: false },
+  { text: "たしかに！\nちょっとやってみるか〜くらいのテンションなら私もできそう！", isB: true },
+  { text: "そういうヒントくれるアプリとかあったら、おもろくない？", isB: false },
 ];
 
 export default function Home() {
@@ -61,76 +61,122 @@ export default function Home() {
   useEffect(() => {
     if (showOpeningVideo && openingVideoRef.current) {
       const video = openingVideoRef.current;
-      // 動画の読み込みが完了してから再生を試みる
-      video.addEventListener('loadeddata', () => {
-        if (video.paused) {
+      let mounted = true;  // コンポーネントがマウントされているかを追跡
+
+      const handleLoaded = () => {
+        if (mounted && video.paused) {
           video.play().catch(error => {
             console.error("動画の再生に失敗:", error);
           });
         }
-      });
+      };
 
       const preventPause = (e: Event) => {
         e.preventDefault();
-        if (video.paused) {
+        if (mounted && video.paused) {
           video.play().catch(error => {
             console.error("再生の再開に失敗:", error);
           });
         }
       };
+
+      // イベントリスナーを一度だけ追加
+      video.addEventListener('loadeddata', handleLoaded, { once: true });
       video.addEventListener('pause', preventPause);
       
       return () => {
-        if (video) {
-          video.removeEventListener('loadeddata', () => {});
-          video.removeEventListener('pause', preventPause);
-          try {
-            video.pause();
-          } catch (error) {
-            console.error("動画の停止に失敗:", error);
-          }
-          video.currentTime = 0;
+        mounted = false;  // クリーンアップ時にフラグを更新
+        video.removeEventListener('loadeddata', handleLoaded);
+        video.removeEventListener('pause', preventPause);
+        try {
+          video.pause();
+        } catch (error) {
+          console.error("動画の停止に失敗:", error);
         }
+        video.currentTime = 0;
       };
     }
   }, [showOpeningVideo]);
 
-  useEffect(() => {
-    if (showLoadVideo && loadVideoRef.current) {
-      const video = loadVideoRef.current;
-      // 動画の読み込みが完了してから再生を試みる
-      video.addEventListener('loadeddata', () => {
-        if (video.paused) {
-          video.play().catch(error => {
-            console.error("動画の再生に失敗:", error);
-          });
+  const handlePlay = async (video: HTMLVideoElement) => {
+    try {
+      await video.play();
+    } catch (error) {
+      console.error("動画の再生に失敗:", error);
+      // 再生に失敗した場合、1秒後に再試行
+      setTimeout(async () => {
+        try {
+          await video.play();
+        } catch (retryError) {
+          console.error("再試行も失敗:", retryError);
         }
-      });
+      }, 1000);
+    }
+  };
+
+  useEffect(() => {
+    if (showLoadVideo && loadVideoRef.current && randomResult) {
+      const video = loadVideoRef.current;
+      let mounted = true;
+
+      console.log('Video element mounted:', video);
+      video.src = `/static/video/${randomResult.video}`;
+      video.load();
+
+      const handleLoaded = () => {
+        if (mounted) {
+          console.log('Video loaded, attempting to play');
+          handlePlay(video);
+        }
+      };
+
+      const handleError = (e: Event) => {
+        if (mounted) {
+          console.error("動画のロードエラー:", e);
+        }
+      };
 
       const preventPause = (e: Event) => {
         e.preventDefault();
-        if (video.paused) {
-          video.play().catch(error => {
-            console.error("再生の再開に失敗:", error);
-          });
+        if (mounted) {
+          handlePlay(video);
         }
       };
-      video.addEventListener('pause', preventPause);
-      
-      return () => {
-        if (video) {
-          video.removeEventListener('loadeddata', () => {});
-          video.removeEventListener('pause', preventPause);
-          try {
-            video.pause();
-          } catch (error) {
-            console.error("動画の停止に失敗:", error);
+
+      const handleUnmount = () => {
+        console.log('Video element about to unmount');
+      };
+
+      // DOMの変更を監視
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'childList') {
+            console.log('DOM changed:', mutation);
           }
-          video.currentTime = 0;
+        });
+      });
+
+      observer.observe(video.parentElement!, {
+        childList: true,
+        subtree: true
+      });
+
+      return () => {
+        mounted = false;
+        observer.disconnect();
+        console.log('Cleanup: Video element unmounting');
+        video.removeEventListener('loadeddata', handleLoaded);
+        video.removeEventListener('error', handleError);
+        video.removeEventListener('pause', preventPause);
+        try {
+          video.pause();
+        } catch (error) {
+          console.error("動画の停止に失敗:", error);
         }
+        video.currentTime = 0;
       };
     }
-  }, [showLoadVideo]);
+  }, [showLoadVideo, randomResult]);
 
   useEffect(() => {
     if (!showText) return;
@@ -161,18 +207,35 @@ export default function Home() {
   }, [currentMessageIndex, showText]);
 
   const handleButtonClick = () => {
-    const random = results[Math.floor(Math.random() * results.length)];
-    setRandomResult(random);
-    setShowButton(false);
-    setShowLoadVideo(true);
+    try {
+      const randomIndex = Math.floor(Math.random() * results.length);
+      const selectedResult = results[randomIndex];
+      console.log("Selected result:", selectedResult);
+      setRandomResult(selectedResult);
+      setShowButton(false);
+      setShowGifBackground(false);
+      // 少し遅延を入れて動画を表示
+      setTimeout(() => {
+        setShowLoadVideo(true);
+      }, 500);
+    } catch (error) {
+      console.error("遷移エラー:", error);
+    }
   };
 
   const handleVideoEnd = () => {
     try {
+      if (!randomResult) return;
+      console.log('Video ended, attempting to navigate');
       setShowLoadVideo(false);
       setShowGifBackground(false);
       // すぐに結果ぺージに遷移
-      const resultIndex = results.findIndex(r => r.text === randomResult?.text);
+      const resultIndex = results.findIndex(r => r.text === randomResult.text);
+      if (resultIndex === -1) {
+        console.error("結果が見つかりません");
+        return;
+      }
+      console.log('Navigating to result page with index:', resultIndex);
       router.push(`/result?id=${resultIndex}`, { scroll: false });
     } catch (error) {
       console.error("ルート遷移に失敗しました", error);
@@ -214,7 +277,7 @@ export default function Home() {
                   : 'bg-[#F3F5F7] text-black rounded-bl-sm'
                 }
               `}>
-                <p className="text-left text-xs leading-relaxed whitespace-pre-wrap">
+                <p className="text-left text-sm leading-relaxed whitespace-pre-wrap">
                   {message.text}
                 </p>
               </div>
@@ -264,7 +327,8 @@ export default function Home() {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           opacity: showText ? 0 : showInitialBackground || showGifBackground ? 1 : 0,
-          transition: "opacity 0.5s ease-in-out"
+          transition: "opacity 0.5s ease-in-out",
+          pointerEvents: "none"
         }}
       />
       <div className="relative z-10 h-full flex items-center justify-center">
@@ -283,7 +347,7 @@ export default function Home() {
             animate={{ opacity: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, filter: "blur(10px)" }}
             transition={{ duration: 2 }}
-            className="fixed bottom-20 left-1/2 -translate-x-1/2"
+            className="fixed bottom-20 left-1/2 -translate-x-1/2 z-[100]"
           >
             <ShinyButton 
               onClick={handleButtonClick}
@@ -336,7 +400,7 @@ export default function Home() {
           >
             <motion.video
               ref={loadVideoRef}
-              src={randomResult.video}
+              src={`/static/video/${randomResult.video}`}
               autoPlay
               playsInline
               muted
