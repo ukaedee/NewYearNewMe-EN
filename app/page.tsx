@@ -263,7 +263,7 @@ export default function Home() {
               }}
               className={`flex ${message.isB ? 'justify-end' : 'justify-start'} mb-3 mx-4`}
             >
-              <div className={`relative max-w-[65%] flex items-start gap-2 ${message.isB ? 'flex-row-reverse' : 'flex-row'}`}>
+              <div className={`relative max-w-[85%] flex items-start gap-2 ${message.isB ? 'flex-row-reverse' : 'flex-row'}`}>
                 {!message.isB && (
                   <div className="w-6 h-6 rounded-full flex-shrink-0 overflow-hidden">
                     <img
@@ -339,7 +339,7 @@ export default function Home() {
       />
       <div className="relative z-10 h-full flex items-center justify-center">
         {showText && (
-          <div className="w-full max-w-md mx-auto px-4 sm:px-6 md:px-8 py-8 overflow-hidden mt-[-10vh]">
+          <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 md:px-8 py-8 overflow-hidden mt-[-10vh]">
             <div className="max-h-screen overflow-y-auto scrollbar-hide">
               <div className="space-y-2">
                 {renderMessages()}
