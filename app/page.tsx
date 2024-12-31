@@ -58,12 +58,28 @@ export default function Home() {
   useEffect(() => {
     if (showOpeningVideo && openingVideoRef.current) {
       const video = openingVideoRef.current;
-      openingVideoRef.current.load();
-      openingVideoRef.current.play();
+      video.load();
+      const playPromise = video.play();
+      
+      const preventPause = (e: Event) => {
+        e.preventDefault();
+        if (video.paused) {
+          video.play();
+        }
+      };
+      video.addEventListener('pause', preventPause);
+      
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.error("自動再生に失敗:", error);
+        });
+      }
       
       return () => {
         if (video) {
+          video.removeEventListener('pause', preventPause);
           video.pause();
+          video.currentTime = 0;
         }
       };
     }
@@ -71,21 +87,29 @@ export default function Home() {
 
   useEffect(() => {
     if (showLoadVideo && loadVideoRef.current) {
-      loadVideoRef.current.load();
-      const playPromise = loadVideoRef.current.play();
+      const video = loadVideoRef.current;
+      video.load();
+      const playPromise = video.play();
+      
       const preventPause = (e: Event) => {
         e.preventDefault();
-        if (loadVideoRef.current?.paused) {
-          loadVideoRef.current.play();
+        if (video.paused) {
+          video.play();
         }
       };
-      loadVideoRef.current.addEventListener('pause', preventPause);
+      video.addEventListener('pause', preventPause);
+      
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.error("自動再生に失敗:", error);
+        });
+      }
       
       return () => {
-        const video = loadVideoRef.current;
         if (video) {
           video.removeEventListener('pause', preventPause);
           video.pause();
+          video.currentTime = 0;
           video.src = '';
           video.load();
         }
@@ -219,7 +243,10 @@ export default function Home() {
                 controls={false}
                 controlsList="noplaybackrate nofullscreen nodownload"
                 disablePictureInPicture
-                style={{ pointerEvents: "none" }}
+                style={{ 
+                  pointerEvents: "none",
+                  touchAction: "none"
+                }}
                 className="w-full h-full object-cover"
                 onEnded={handleOpeningVideoEnd}
               />
@@ -246,7 +273,10 @@ export default function Home() {
                   controls={false}
                   controlsList="noplaybackrate nofullscreen nodownload"
                   disablePictureInPicture
-                  style={{ pointerEvents: "none" }}
+                  style={{ 
+                    pointerEvents: "none",
+                    touchAction: "none"
+                  }}
                   className="w-full h-full object-cover"
                   onEnded={handleVideoEnd}
                   onTimeUpdate={handleVideoTimeUpdate}

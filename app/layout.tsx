@@ -6,7 +6,7 @@ import { AnimatePresence } from "framer-motion";
 export const metadata: Metadata = {
   metadataBase: new URL('https://new-year-new-me-six.vercel.app/'),
   title: "NewYear NewMe",
-  description: "運勢...ではなく、新しく挑戦をしたいあなたへ提案をするおみくじアプリです？",
+  description: "運勢...ではなく、新年に新しい挑戦をしたいあなたへ提案をするおみくじアプリです",
   icons: {
     icon: '/static/icons/favicon.png',
     shortcut: '/static/icons/favicon.png',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "NewYear NewMe",
-    description: "運勢...ではなく、新しく挑戦をしたいあなたへ提案をするおみくじアプリです？",
+    description: "運勢...ではなく、新年に新しい挑戦をしたいあなたへ提案をするおみくじアプリです",
     images: [
       {
         url: "/static/background/OGP.png",
