@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Result, results } from "@/app/data/omikuji";
 import ShinyButton from "@/app/components/ui/shiny-button";
+import { isMobileDevice } from "@/app/utils/deviceDetection";
 
 // メッセージの型定義
 interface Message {
@@ -23,6 +24,14 @@ const messages: Message[] = [
 ];
 
 export default function Home() {
+  const router = useRouter();
+
+  // スマートフォン以外からのアクセスをチェック
+  if (typeof window !== 'undefined' && !isMobileDevice()) {
+    router.push('/403');
+    return null;
+  }
+
   const [showButton, setShowButton] = useState(false);
   const [showLoadVideo, setShowLoadVideo] = useState(false);
   const [showOpeningVideo, setShowOpeningVideo] = useState(false);
@@ -32,7 +41,6 @@ export default function Home() {
   const [showSecondText, setShowSecondText] = useState(false);
   const [isVideoEnding, setIsVideoEnding] = useState(false);
   const [randomResult, setRandomResult] = useState<Result | null>(null);
-  const router = useRouter();
   const openingVideoRef = useRef<HTMLVideoElement>(null);
   const loadVideoRef = useRef<HTMLVideoElement>(null);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);

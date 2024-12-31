@@ -6,6 +6,7 @@ import { Result, results } from "@/app/data/omikuji";
 import ShinyButton from "@/app/components/ui/shiny-button";
 import { motion } from "framer-motion";
 import Image from 'next/image';
+import { isMobileDevice } from "@/app/utils/deviceDetection";
 
 // シェア用のURLとテキストを生成する関数
 const getShareData = (result: Result) => {
@@ -32,6 +33,13 @@ const handleFacebookShare = (result: Result) => {
 
 export default function ResultPage() {
   const router = useRouter();
+
+  // スマートフォン以外からのアクセスをチェック
+  if (typeof window !== 'undefined' && !isMobileDevice()) {
+    router.push('/403');
+    return null;
+  }
+
   const [randomResult, setRandomResult] = useState<Result | null>(null); // 型を明確に指定
 
   // クライアントサイドでランダム値を生成
