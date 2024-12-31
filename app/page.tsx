@@ -9,16 +9,17 @@ import ShinyButton from "@/app/components/ui/shiny-button";
 interface Message {
   text: string;
   isB: boolean;  // true = 相手, false = 自分
+  name?: string;  // 名前を追加
 }
 
 const messages: Message[] = [
-  { text: "新年の抱負とか立てても、続いたことないの私だけ？？ｗ", isB: false },
-  { text: "それなｗ2月には忘れてる^^;", isB: true },
-  { text: "でもさ、今年はSNSとかちょっと離れて、自分見つめ直す時間増やしたいんだよね🪄🧚", isB: false },
-  { text: "お〜！めちゃいいじゃん！💖 でもさ、1日スマホ手放すとか現実味なさすぎない？", isB: true },
-  { text: "いや、それなんよ！絶対気になっちゃうし〜😭\n軽く意識するキッカケとか欲しいよね", isB: false },
+  { text: "新年の抱負とか立てても、続いたことないの私だけ？？ｗ", isB: false, name: "kaho" },
+  { text: "それなｗ2月には忘れてる^^;", isB: true},
+  { text: "でもさ、今年はSNSとかちょっと離れて、自分見つめ直す時間増やす目標を掲げたい！！！", isB: false, name: "remu" },
+  { text: "お〜！めちゃいいじゃん！💖 でもさ、1日スマホ手放すとか現実味なさすぎない？", isB: true},
+  { text: "いや、それなんよ！絶対気になっちゃうし〜😭\n軽く意識するキッカケとか欲しいよね", isB: false, name: "kaho" },
   { text: "たしかに！\nちょっとやってみるか〜くらいのテンションなら私もできそう！", isB: true },
-  { text: "そういうヒントくれるアプリとかあったら、おもろくない？", isB: false },
+  { text: "そういうヒントくれるアプリとかあったら、おもろくない？", isB: false, name: "remu" },
 ];
 
 export default function Home() {
@@ -234,34 +235,48 @@ export default function Home() {
 
   // チャットUIのレンダリング
   const renderMessages = () => {
+    let kahoIconCount = 0;  // かほのメッセージカウンター
     return (
       <>
-        {messages.slice(0, currentMessageIndex).map((message, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className={`flex ${message.isB ? 'justify-end' : 'justify-start'} mb-3 mx-4`}
-          >
-            <div className={`relative max-w-[65%] flex items-start gap-2 ${message.isB ? 'flex-row-reverse' : 'flex-row'}`}>
-              {!message.isB && (
-                <div className="w-6 h-6 rounded-full bg-[#F3F5F7] flex-shrink-0" />
-              )}
-              <div className={`
-                px-3 py-2 rounded-[16px]
-                ${message.isB 
-                  ? 'bg-[#1382FE] text-white rounded-br-sm' 
-                  : 'bg-[#F3F5F7] text-black rounded-bl-sm'
-                }
-              `}>
-                <p className="text-left text-sm leading-relaxed whitespace-pre-wrap">
-                  {message.text}
-                </p>
+        {messages.slice(0, currentMessageIndex).map((message, index) => {
+          // isB: falseの場合にカウンターをインクリメント
+          if (!message.isB) {
+            kahoIconCount++;
+          }
+          return (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className={`flex ${message.isB ? 'justify-end' : 'justify-start'} mb-3 mx-4`}
+            >
+              <div className={`relative max-w-[65%] flex items-start gap-2 ${message.isB ? 'flex-row-reverse' : 'flex-row'}`}>
+                {!message.isB && (
+                  <div className="w-6 h-6 rounded-full flex-shrink-0 overflow-hidden">
+                    <img
+                      src={`/static/icons/${kahoIconCount % 2 === 1 ? 'kaho-icon' : 'remu-icon'}.png`}
+                      alt={message.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <div className="flex flex-col">
+                  {message.name && (
+                    <span className={`text-xs text-gray-500 mb-1 ${message.isB ? 'text-right' : 'text-left'}`}>
+                      {message.name}
+                    </span>
+                  )}
+                  <div className={`px-3 py-2 rounded-[16px] ${message.isB ? 'bg-[#1382FE] text-white rounded-br-sm' : 'bg-[#F3F5F7] text-black rounded-bl-sm'}`}>
+                    <p className="text-left text-sm leading-relaxed whitespace-pre-wrap">
+                      {message.text}
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
         {isTyping && (
           <motion.div
             initial={{ opacity: 0 }}
