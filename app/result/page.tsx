@@ -13,7 +13,7 @@ const getShareData = (result: Result) => {
     ? `${window.location.protocol}//${window.location.host}`
     : '';
   const shareUrl = `${baseUrl}/result`;
-  const shareText = `2024年の運勢は「${result.text}」でした！\n${result.description}`;
+  const shareText = `デジタルから離れて、自分を見つめ直す時間を少しだけ作るおみくじアプリ\n\n#NewYearNewMe`;
   return { shareUrl, shareText };
 };
 

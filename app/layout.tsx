@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 export const metadata: Metadata = {
   metadataBase: new URL('https://new-year-new-me-six.vercel.app/'),
   title: "NewYear NewMe",
-  description: "運勢...ではなく、新年に新しい挑戦をしたいあなたへ提案をするおみくじアプリです",
+  description: "デジタルから離れて、自分を見つめ直す時間を少しだけ作るおみくじアプリ",
   icons: {
     icon: '/static/icons/favicon.png',
     shortcut: '/static/icons/favicon.png',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "NewYear NewMe",
-    description: "運勢...ではなく、新年に新しい挑戦をしたいあなたへ提案をするおみくじアプリです",
+    description: "デジタルから離れて、自分を見つめ直す時間を少しだけ作るおみくじアプリ",
     images: [
       {
         url: "/static/background/OGP.png",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "NewYear NewMe",
-    description: "運勢...ではなく、新しく挑戦をしたいあなたへ提案をするおみくじアプリです",
+    description: "デジタルから離れて、自分を見つめ直す時間を少しだけ作るおみくじアプリ",
     images: ["/static/background/OGP.png"],
   },
 };
@@ -41,6 +41,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
+      <head>
+        <meta property="og:title" content="NewYear NewMe" />
+        <meta property="og:description" content="デジタルから離れて、自分を見つめ直す時間を少しだけ作るおみくじアプリ" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/static/background/OGP.png" />
+        <meta property="og:url" content="https://new-year-new-me-six.vercel.app/" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </head>
       <body className={`
         font-noto-sans-jp
         antialiased
