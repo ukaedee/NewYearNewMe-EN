@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   metadataBase: new URL('https://new-year-new-me-six.vercel.app/'),
   title: "おみくじ結果 | NewYear-NewMe",
-  description: "あなたの2024年の運勢が決まりました！",
+  description: "NewYear-NewMeのおみくじ結果",
   openGraph: {
     title: "おみくじ結果 | NewYear-NewMe",
-    description: "にゅ〜いや〜ニュ〜み〜",
+    description: "NewYear-NewMeのおみくじ結果",
     images: [
       {
         url: "/static/background/OGP.png",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "おみくじ結果 | NewYear-NewMe",
-    description: "にゅ〜いや〜ニュ〜み〜",
+    description: "NewYear-NewMeのおみくじ結果",
     images: ["/static/background/OGP.png"],
   },
 };
