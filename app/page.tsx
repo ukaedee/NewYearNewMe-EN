@@ -13,13 +13,13 @@ interface Message {
 }
 
 const messages: Message[] = [
-  { text: "新年の抱負とか立てても、続いたことないの私だけ？？ｗ", isB: false, name: "kaho" },
+  { text: "新年の抱負を立てても、続いたことないの私だけ？？ｗ", isB: false, name: "kaede" },
   { text: "それなｗ2月には忘れてる^^;", isB: true},
-  { text: "でもさ、今年はSNSとかちょっと離れて、自分見つめ直す時間増やす目標を掲げたい！！！", isB: false, name: "remu" },
+  { text: "今年はSNSとかちょっと離れて、自分見つめ直す時間増やす目標を掲げたい！！！", isB: false, name: "kaho" },
   { text: "お〜！めちゃいいじゃん！💖 でもさ、1日スマホ手放すとか現実味なさすぎない？", isB: true},
-  { text: "いや、それなんよ！絶対気になっちゃうし〜😭\n軽く意識するキッカケとか欲しいよね", isB: false, name: "kaho" },
-  { text: "たしかに！\nちょっとやってみるか〜くらいのテンションなら私もできそう！", isB: true },
-  { text: "そういうヒントくれるアプリとかあったら、おもろくない？", isB: false, name: "remu" },
+  { text: "いや、それなんよ！絶対気になっちゃうし〜😭\n軽く意識するキッカケとか欲しいよね", isB: false, name: "remu" },
+  { text: "たしかに！\nちょっとやってみるか〜くらいのテンションなら続けられるかも！", isB: true },
+  { text: "そういうヒントくれるアプリとかあったら、おもろくない？", isB: false, name: "kaede" },
 ];
 
 export default function Home() {
@@ -236,6 +236,7 @@ export default function Home() {
   // チャットUIのレンダリング
   const renderMessages = () => {
     let kahoIconCount = 0;  // かほのメッセージカウンター
+    const icons = ['remu-icon', 'kaede-icon', 'kaho-icon'];  // アイコンの配列
     return (
       <>
         {messages.slice(0, currentMessageIndex).map((message, index) => {
@@ -255,7 +256,7 @@ export default function Home() {
                 {!message.isB && (
                   <div className="w-6 h-6 rounded-full flex-shrink-0 overflow-hidden">
                     <img
-                      src={`/static/icons/${kahoIconCount % 2 === 1 ? 'kaho-icon' : 'remu-icon'}.png`}
+                      src={`/static/icons/${icons[kahoIconCount % 3]}.png`}
                       alt={message.name}
                       className="w-full h-full object-cover"
                     />
@@ -326,7 +327,7 @@ export default function Home() {
       />
       <div className="relative z-10 h-full flex items-center justify-center">
         {showText && (
-          <div className="w-full max-w-md mx-auto px-4 py-8 overflow-y-auto max-h-screen">
+          <div className="w-full max-w-md mx-auto px-4 sm:px-6 md:px-8 py-8 overflow-y-auto max-h-screen">
             <div className="space-y-2">
               {renderMessages()}
             </div>
