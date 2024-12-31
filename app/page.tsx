@@ -13,7 +13,7 @@ interface Message {
 
 const messages: Message[] = [
   { text: "新年の抱負とか立てても、続いたことないの私だけ？？ｗ", isB: false },
-  { text: "それなｗ毎年2月には忘れてる^^;", isB: true },
+  { text: "それなｗ2月には忘れてる^^;", isB: true },
   { text: "でもさ、今年はSNSとかちょっと離れて、自分見つめ直す時間増やしたいんだよね🪄🧚", isB: false },
   { text: "お〜！めちゃいいじゃん！💖 でもさ、1日スマホ手放すとか現実味なさすぎない？", isB: true },
   { text: "いや、それなんよ！絶対気になっちゃうし〜😭\n軽く意識するキッカケとか欲しいよね", isB: false },
@@ -120,6 +120,15 @@ export default function Home() {
       let mounted = true;
 
       console.log('Video element mounted:', video);
+      // 前の動画が再生中の場合は停止
+      if (!video.paused) {
+        try {
+          video.pause();
+        } catch (error) {
+          console.error("Failed to pause previous video:", error);
+        }
+      }
+
       video.src = `/static/video/${randomResult.video}`;
       video.load();
 
@@ -130,48 +139,16 @@ export default function Home() {
         }
       };
 
-      const handleError = (e: Event) => {
-        if (mounted) {
-          console.error("動画のロードエラー:", e);
-        }
-      };
-
-      const preventPause = (e: Event) => {
-        e.preventDefault();
-        if (mounted) {
-          handlePlay(video);
-        }
-      };
-
-      const handleUnmount = () => {
-        console.log('Video element about to unmount');
-      };
-
-      // DOMの変更を監視
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.type === 'childList') {
-            console.log('DOM changed:', mutation);
-          }
-        });
-      });
-
-      observer.observe(video.parentElement!, {
-        childList: true,
-        subtree: true
-      });
+      video.addEventListener('loadeddata', handleLoaded, { once: true });
 
       return () => {
         mounted = false;
-        observer.disconnect();
-        console.log('Cleanup: Video element unmounting');
-        video.removeEventListener('loadeddata', handleLoaded);
-        video.removeEventListener('error', handleError);
-        video.removeEventListener('pause', preventPause);
-        try {
-          video.pause();
-        } catch (error) {
-          console.error("動画の停止に失敗:", error);
+        if (!video.paused) {
+          try {
+            video.pause();
+          } catch (error) {
+            console.error("動画の停止に失敗:", error);
+          }
         }
         video.currentTime = 0;
       };
@@ -214,10 +191,7 @@ export default function Home() {
       setRandomResult(selectedResult);
       setShowButton(false);
       setShowGifBackground(false);
-      // 少し遅延を入れて動画を表示
-      setTimeout(() => {
-        setShowLoadVideo(true);
-      }, 500);
+      setShowLoadVideo(true);
     } catch (error) {
       console.error("遷移エラー:", error);
     }
@@ -249,9 +223,13 @@ export default function Home() {
 
   // 動画終了時のハンドラー
   const handleOpeningVideoEnd = () => {
-    setShowOpeningVideo(false);
-    setShowGifBackground(true);
-    setShowButton(true);
+    try {
+      setShowOpeningVideo(false);
+      setShowGifBackground(true);
+      setShowButton(true);
+    } catch (error) {
+      console.error("Opening video end error:", error);
+    }
   };
 
   // チャットUIのレンダリング
