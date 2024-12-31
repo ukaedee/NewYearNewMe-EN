@@ -253,15 +253,27 @@ export default function Home() {
           return (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ 
+                opacity: 0, 
+                y: 0,
+                scale: 0.95,
+                x: '-50%',
+                left: '50%'
+              }}
+              animate={{ 
+                opacity: 1, 
+                scale: 1,
+                x: 0,
+                left: 0
+              }}
               transition={{ 
                 type: "spring",
-                stiffness: 200,
-                damping: 20,
-                duration: 0.5
+                stiffness: 300,
+                damping: 25,
+                duration: 0.5,
+                ease: "easeOut"
               }}
-              className={`flex ${message.isB ? 'justify-end' : 'justify-start'} mb-3 mx-4`}
+              className={`flex ${message.isB ? 'justify-end' : 'justify-start'} mb-3 mx-4 relative`}
             >
               <div className={`relative max-w-[85%] flex items-start gap-2 ${message.isB ? 'flex-row-reverse' : 'flex-row'}`}>
                 {!message.isB && (
