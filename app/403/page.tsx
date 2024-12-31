@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Image from 'next/image';
 
 export default function Custom403() {
   const router = useRouter();
@@ -25,6 +26,15 @@ export default function Custom403() {
       />
       
       <motion.div className="relative z-10 text-white">
+        <div className="mb-8">
+          <Image
+            src="/static/background/logo.png"
+            alt="おみくじロゴ"
+            width={144}
+            height={36}
+            className="mx-auto"
+          />
+        </div>
         <h1 className="text-2xl font-bold mb-4">スマートフォンからのみ<br />ご利用いただけます</h1>
         <p className="text-lg mb-8">
           このアプリは、スマートフォンに<br />最適化されています。
