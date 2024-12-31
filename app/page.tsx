@@ -19,7 +19,7 @@ const messages: Message[] = [
   { text: "お〜！めちゃいいじゃん！💖 でもさ、1日スマホ手放すとか現実味なさすぎない？", isB: true},
   { text: "いや、それなんよ！絶対気になっちゃうし〜😭\n軽く意識するキッカケとか欲しいよね", isB: false, name: "remu" },
   { text: "たしかに！\nちょっとやってみるか〜くらいのテンションなら続けられるかも！", isB: true },
-  { text: "そういうヒントくれるアプリとかあったら、おもろくない？", isB: false, name: "kaede" },
+  { text: "そういうヒントくれる新年アプリとかあったら、おもろくない？", isB: false, name: "kaede" },
 ];
 
 export default function Home() {
@@ -37,6 +37,7 @@ export default function Home() {
   const loadVideoRef = useRef<HTMLVideoElement>(null);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // 初期表示
@@ -165,13 +166,11 @@ export default function Home() {
         if (!nextMessage.isB) {
           setIsTyping(true);
         }
-        // タイピング中のアニメーション表示
         setTimeout(() => {
           setIsTyping(false);
           setCurrentMessageIndex(prev => prev + 1);
-        }, 1500); // タイピング時間を1.5秒に延長
+        }, 2000); // タイピング時間を少し長めに
       } else {
-        // 最後のメッセージが表示されてから3秒後に遷移
         setTimeout(() => {
           setShowText(false);
           setShowInitialBackground(true);
@@ -179,7 +178,7 @@ export default function Home() {
       }
     };
 
-    const timer = setTimeout(showNextMessage, 2500);
+    const timer = setTimeout(showNextMessage, 3000); // メッセージ間の間隔を少し長めに
 
     return () => clearTimeout(timer);
   }, [currentMessageIndex, showText]);
@@ -233,23 +232,35 @@ export default function Home() {
     }
   };
 
+  // 新しいメッセージが追加されたら自動スクロール
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      // 自動スクロールを削除
+    }
+  }, [currentMessageIndex]);
+
   // チャットUIのレンダリング
   const renderMessages = () => {
-    let kahoIconCount = 0;  // かほのメッセージカウンター
-    const icons = ['remu-icon', 'kaede-icon', 'kaho-icon'];  // アイコンの配列
+    let kahoIconCount = 0;
+    const icons = ['remu-icon', 'kaede-icon', 'kaho-icon'];
+
     return (
       <>
         {messages.slice(0, currentMessageIndex).map((message, index) => {
-          // isB: falseの場合にカウンターをインクリメント
           if (!message.isB) {
             kahoIconCount++;
           }
           return (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 200,
+                damping: 20,
+                duration: 0.5
+              }}
               className={`flex ${message.isB ? 'justify-end' : 'justify-start'} mb-3 mx-4`}
             >
               <div className={`relative max-w-[65%] flex items-start gap-2 ${message.isB ? 'flex-row-reverse' : 'flex-row'}`}>
@@ -282,6 +293,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="flex justify-start mb-4 mx-4"
           >
             <div className="bg-[#F3F5F7] rounded-full px-4 py-1">
@@ -327,9 +339,11 @@ export default function Home() {
       />
       <div className="relative z-10 h-full flex items-center justify-center">
         {showText && (
-          <div className="w-full max-w-md mx-auto px-4 sm:px-6 md:px-8 py-8 overflow-y-auto max-h-screen">
-            <div className="space-y-2">
-              {renderMessages()}
+          <div className="w-full max-w-md mx-auto px-4 sm:px-6 md:px-8 py-8 overflow-hidden mt-[-10vh]">
+            <div className="max-h-screen overflow-y-auto scrollbar-hide">
+              <div className="space-y-2">
+                {renderMessages()}
+              </div>
             </div>
           </div>
         )}
