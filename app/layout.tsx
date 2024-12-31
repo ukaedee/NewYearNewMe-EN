@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import AdobeFontsScript from "./components/AdobeFontsScript";
 import "./globals.css";
 import { AnimatePresence } from "framer-motion";
 
@@ -42,18 +41,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <head>
-        <style>
-          {`
-            body {
-              overscroll-behavior-x: auto;
-              background-color: #9A5AC8;
-            }
-          `}
-        </style>
-        <AdobeFontsScript />
-      </head>
-      <body>
+      <body className={`
+        font-noto-sans-jp
+        antialiased
+      `}>
         <AnimatePresence mode="wait">
           {children}
         </AnimatePresence>

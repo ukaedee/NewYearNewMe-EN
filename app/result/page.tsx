@@ -136,7 +136,7 @@ export default function ResultPage() {
             />
           </div>
           <div className="flex-grow flex flex-col items-center justify-center -mt-16">
-            <h3 className="text-xl font-bold mb-2 text-white font-noto-sans-jp">
+            <h3 className="text-xl font-bold mb-2 text-white">
               <div className="text-[24px] leading-relaxed">
                 {formatText(randomResult.text)}
               </div>

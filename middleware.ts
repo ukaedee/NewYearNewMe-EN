@@ -10,10 +10,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // モバイル以外のデバイスは403ページにリダイレクト
-  if (!isMobile(userAgent)) {
-    return NextResponse.redirect(new URL('/403', request.url))
-  }
+  // 一時的にデバイスチェックを無効化
+  // if (!isMobile(userAgent)) {
+  //   return NextResponse.redirect(new URL('/403', request.url))
+  // }
 
   return NextResponse.next()
 }
