@@ -130,9 +130,10 @@ export default function ResultPage() {
             <Image
               src="/static/background/logo.png"
               alt="おみくじロゴ"
-              width={144}
-              height={36}
+              width={100}
+              height={25}
               className="mx-auto mt-4"
+              style={{ opacity: 0.6 }}
             />
           </div>
           <div className="flex-grow flex flex-col items-center justify-center -mt-16">
