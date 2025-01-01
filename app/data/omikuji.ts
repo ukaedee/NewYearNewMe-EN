@@ -8,82 +8,80 @@ export interface Result {
 
 export const results: Result[] = [
   {
-    text: "次の電車は、スマホ封印でいこ！",
-    description: "次の電車は、スマホ封印でいこ！",
+    text: "You gonna keep your eyes off the phone on the next train ride",
+    description: "You gonna keep your eyes off the phone on the next train ride",
     video: "result-1.mp4" as const,
-    textLines: ["次の電車は、","スマホ封印でいこ！"],
+    textLines: ["You gonna keep your eyes off the phone on the next train ride"],
     descriptionLines: [
-      "窓の外とか人間観察してたら、",
-      "意外とリフレッシュできるかも！",
-      "目的地つくまで、ぼーっとしてみよ",
+      "Try gazing out the window or just watching the world go by –",
+      "You might feel more refreshed than you expect!",
+      "Let your mind wander until you reach your stop",
     ]
   },
   {
-    text: "一駅手前で降りて、マップに頼らず帰ってみよ！",
-    description: "一駅手前で降りて、マップに頼らず帰ってみよ！",
+    text: "Get off one station early and find your way home without using a map app",
+    description: "Get off one station early and find your way home without using a map app",
     video: "result-2.mp4" as const,
-    textLines: ["一駅手前で降りて、", "マップに頼らず帰ってみよ！"],
+    textLines: ["Get off one station early and find your way home without using a map app"],
     descriptionLines: [
-      "いつものルートじゃなくて、",
-      "気まぐれで別の道歩いてみよう。",
-      "寄り道して帰るのも",
-      "たまには悪くないんじゃない？"
+      "Forget the usual route,",
+      "Take a random detour – you might stumble upon something cool!",
+      "Sometimes, getting lost on the way home can lead to a pleasant surprise!"
     ]
   },
+
   {
-    text: "今日はイヤホン外して外の音きいてみよ！",
-    description: "今日はイヤホン外して外の音きいてみよ！",
+    text: "Take off your earphones today and tune into the sounds around you",
+    description: "Take off your earphones today and tune into the sounds around you",
     video: "result-3.mp4" as const,
-    textLines: ["今日はイヤホン外して", "外の音きいてみよ！"],
+    textLines: ["Take off your earphones today and tune into the sounds around you"],
     descriptionLines: [
-      "鳥の声・車の音とかの生活音を聞いて",
-      "今の音ってなんだろとか考えながら",
-      "ぼーっと過ごす時間も必要だと思うんだよね〜"
+      "Birds chirping, traffic – just the sounds of life.",
+      "Think about what you’re hearing, and let your mind wander.",
+      "Sometimes, zoning out to the world of soundtrack is the best way to refresh your mind !"
     ]
   },
  
   {
-    text: "目線ちょっと下げて、足元の景色チェックしてみよ？",
-    description: "目線ちょっと下げて、足元の景色チェックしてみよ？",
+    text: "Take a moment to look down and notice what your've been overlooking",
+    description: "Take a moment to look down and notice what your've been overlooking",
     video: "result-4.mp4" as const,
-    textLines: ["目線ちょっと下げて、", "足元の景色チェックしてみよ？"],
+    textLines: ["Take a moment to look down and notice what your've been overlooking"],
     descriptionLines: [
-      "地面の模様とか、葉っぱとか小石とか",
-      "普段よりゆっくり歩いて、よーく見ると",
-      "新しい発見があって面白いんだよね〜"
+      "Notice the patterns on the ground, leaves, pebbles –",
+      "Walk a bit slower and really take it in.",
+      "You’d be surprised how many cool little things you’ve been missing !"
     ]
   },
   {
-    text: "今日は視線ちょい上げで過ごしてこ！",
-    description: "今日は視線ちょい上げで過ごしてこ！",
+    text: "Look up and discover the small patterns around you.",
+    description: "Look up and discover the small patterns around you.",
     video: "result-5.mp4" as const,
-    textLines: ["今日は視線ちょい上げで", "過ごしてみよ！"],
+    textLines: ["Look up and discover the small patterns around you."],
     descriptionLines: [
-      "天井や壁の模様、看板とか屋根とか",
-      "どんな材質・色・模様なのか",
-      "観察しながら歩くの楽しいんだよ！意外と！",
+      "Notice the patterns on ceilings, walls, signs, and rooftops.",
+      "Pay attention to the materials, colors, and designs.",
+      "You’d be surprised how fun it is to observe them as you walk!",
     ]
   },
   {
-    text: "明日は早起きして美味しい朝ごはん食べに行かない？",
-    description: "明日は早起きして美味しい朝ごはん食べに行かない？",
+    text: "Let's wake up early and go for a nice brunch tomorrow morning",
+    description: "Let's wake up early and go for a nice brunch tomorrow morning  ",
     video: "result-6.mp4" as const,
-    textLines: ["明日は早起きして", "美味しい朝ごはん食べに行かない？"],
+    textLines: ["Let's wake up early and go for a nice brunch tomorrow morning  "],
     descriptionLines: [
-      "明日の朝食いいもの食べる！",
-      "って決めたら明日が楽しみすぎない？！",
-      "スワイプやめて、明日に向けて休もうぜ〜！"
+      "Deciding to have a great breakfast tomorrow makes it something to look forward to!",
+      "Put down the scroll, and let’s rest up for tomorrow!"
     ]
   },
   {
-    text: "次のごはんは、スマホ見ずに食べよ！",
-    description: "次のごはんは、スマホ見ずに食べよ！",
+    text: "Let's eat the next meal without looking at our phones",
+    description: "Let's eat the next meal without looking at our phones",
     video: "result-7.mp4" as const,
-    textLines: ["次のごはんは、", "スマホ見ずに食べよ！"],
+    textLines: ["Let's eat the next meal without looking at our phones"],
     descriptionLines: [
-      "なんか意識高めのやつとか思ったでしょ〜！",
-      "ちゃんと色と向き合って、味わって食べたら",
-      "自分に向き合う時間にもなるかな～って思うんだよね"
+      "Take a moment to really savor the colors and flavors,",
+      "It might be a good way to slow down and focus on the present.",
 
     ]
   },

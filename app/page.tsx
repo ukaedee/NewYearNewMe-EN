@@ -14,13 +14,12 @@ interface Message {
 }
 
 const messages: Message[] = [
-  { text: "新年の抱負を立てても、続いたことないの私だけ？？ｗ", isB: false, name: "kaede" },
-  { text: "それなｗ2月には忘れてる^^;", isB: true},
-  { text: "今年はSNSとかちょっと離れて、自分見つめ直す時間増やす目標を掲げたい！！！", isB: false, name: "kaho" },
-  { text: "お〜！めちゃいいじゃん！💖 でもさ、1日スマホ手放すとか現実味なさすぎない？", isB: true},
-  { text: "いや、それなんよ！絶対気になっちゃうし〜😭\n軽く意識するキッカケとか欲しいよね", isB: false, name: "remu" },
-  { text: "たしかに！\nちょっとやってみるか〜くらいのテンションなら続けられるかも！", isB: true },
-  { text: "そういうヒントくれる新年アプリとかあったら、おもろくない？", isB: false, name: "kaede" },
+  { text: "Am I the only one who never sticks to their New Year’s resolutions? lol", isB: false, name: "kaede" },
+  { text: "No fr—I totally forget about them by like February🫠", isB: true},
+  { text: "Every year I’ve been saying to cut down on screen time and focus more on self-care…and it never happens lol", isB: false, name: "kaho" },
+  { text: "I feel youuu!! It just feels impossible to just give up your phone for a whole day😭", isB: true},
+  { text: "Like I’d never be able to resist all of the notifications…We probably need something a little more manageable to start with🤔", isB: false, name: "remu" },
+  { text: "Wouldn’t it be cool if there was an app that gave you little prompts to help with that!?", isB: false, name: "kaede" },
 ];
 
 export default function Home() {
