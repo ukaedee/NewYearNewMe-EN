@@ -33,17 +33,7 @@ const handleFacebookShare = (result: Result) => {
 
 export default function ResultPage() {
   const router = useRouter();
-
-  // スマートフォン以外からのアクセスをチェック
-  if (typeof window !== 'undefined' && isMobileDevice()) {
-    // モバイルの場合は何もしない（そのままページを表示）
-  } else if (typeof window !== 'undefined') {
-    // モバイル以外の場合は403ページへリダイレクト
-    router.push('/403');
-    return null;
-  }
-
-  const [randomResult, setRandomResult] = useState<Result | null>(null); // 型を明確に指定
+  const [randomResult, setRandomResult] = useState<Result | null>(null);
 
   // クライアントサイドでランダム値を生成
   useEffect(() => {
