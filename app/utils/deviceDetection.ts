@@ -2,11 +2,15 @@ export const isMobile = (userAgent: string): boolean => {
   return /iPhone|Android|Mobile|webOS/i.test(userAgent);
 };
 
-export const isMobileDevice = () => {
+export const isMobileDevice = (): boolean => {
   if (typeof window === 'undefined') return false;
-
-  // スマートフォンの判定（タブレットを除外）
-  return /Android.*Mobile|iPhone/i.test(
-    navigator.userAgent
+  
+  const result = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    window.navigator.userAgent
   );
+  
+  console.log('UserAgent:', window.navigator.userAgent);
+  console.log('isMobileDevice result:', result);
+  
+  return result;
 }; 
