@@ -35,7 +35,10 @@ export default function ResultPage() {
   const router = useRouter();
 
   // スマートフォン以外からのアクセスをチェック
-  if (typeof window !== 'undefined' && !isMobileDevice()) {
+  if (typeof window !== 'undefined' && isMobileDevice()) {
+    // モバイルの場合は何もしない（そのままページを表示）
+  } else if (typeof window !== 'undefined') {
+    // モバイル以外の場合は403ページへリダイレクト
     router.push('/403');
     return null;
   }
@@ -63,7 +66,7 @@ export default function ResultPage() {
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
-    alert("リンクがコピーされました！");
+    alert("Copyed");
   };
 
   const formatText = (text: string, isDescription: boolean = false): React.ReactElement => {
@@ -199,7 +202,7 @@ export default function ResultPage() {
                   "--primary": "142 100% 50%"
                 } as React.CSSProperties}
               >
-                もう一度引く
+                One more
               </ShinyButton>
             </div>
           </div>
