@@ -14,7 +14,7 @@ const getShareData = (result: Result) => {
     ? `${window.location.protocol}//${window.location.host}`
     : '';
   const shareUrl = `${baseUrl}/result`;
-  const shareText = `デジタルから離れて、自分を見つめ直す時間を少しだけ作るおみくじアプリ\n\n#NewYearNewMe`;
+  const shareText = `A fortune-telling app that gives you a little time to step away from the digital world and take a moment to reflect on yourself.\n\n#NewYearNewMe`;
   return { shareUrl, shareText };
 };
 

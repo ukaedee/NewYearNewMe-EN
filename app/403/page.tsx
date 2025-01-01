@@ -35,9 +35,9 @@ export default function Custom403() {
             className="mx-auto"
           />
         </div>
-        <h1 className="text-2xl font-bold mb-4">スマートフォンからのみ<br />ご利用いただけます</h1>
+        <h1 className="text-2xl font-bold mb-4">Smartphone Only</h1>
         <p className="text-lg mb-8">
-          このアプリは、スマートフォンに<br />最適化されています。
+        This app is optimized for smartphones and can only be accessed from a smartphone.
         </p>
       </motion.div>
     </motion.div>

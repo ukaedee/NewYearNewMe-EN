@@ -316,7 +316,7 @@ export default function Home() {
             className="flex justify-start mb-4 mx-4"
           >
             <div className="bg-[#F3F5F7] rounded-full px-4 py-1">
-              <span className="text-gray-500 text-xs">入力中...</span>
+              <span className="text-gray-500 text-xs">Typing...</span>
             </div>
           </motion.div>
         )}
@@ -382,7 +382,7 @@ export default function Home() {
                 "--primary": "328 100% 54%"
               } as React.CSSProperties}
             >
-              おみくじを引く
+              Click me！
             </ShinyButton>
           </motion.div>
         )}
