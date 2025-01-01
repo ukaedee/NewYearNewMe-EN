@@ -25,12 +25,6 @@ const messages: Message[] = [
 export default function Home() {
   const router = useRouter();
 
-  // スマートフォン以外からのアクセスをチェック
-  if (typeof window !== 'undefined' && !isMobileDevice()) {
-    router.push('/403');
-    return null;
-  }
-
   const [showButton, setShowButton] = useState(false);
   const [showLoadVideo, setShowLoadVideo] = useState(false);
   const [showOpeningVideo, setShowOpeningVideo] = useState(false);
