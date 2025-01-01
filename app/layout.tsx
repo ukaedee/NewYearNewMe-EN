@@ -46,10 +46,7 @@ export default function RootLayout({
         <meta property="og:url" content="https://new-year-new-me-six.vercel.app/" />
         <meta name="twitter:card" content="summary_large_image" />
       </head>
-      <body className={`
-        font-noto-sans-jp
-        antialiased
-      `}>
+      <body className="font-noto-sans-jp antialiased">
         <AnimatePresence mode="wait">
           {children}
         </AnimatePresence>
