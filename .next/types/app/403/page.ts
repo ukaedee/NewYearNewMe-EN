@@ -1,4 +1,4 @@
-// File: /Users/kaede/Downloads/2025/newyearnewme/app/403/page.tsx
+// File: /Users/kaede/Downloads/2025/newyearnewme ENver/app/403/page.tsx
 import * as entry from '../../../../app/403/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
